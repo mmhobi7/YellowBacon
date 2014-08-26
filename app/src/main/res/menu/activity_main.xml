@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@id/menu_settings1" android:orderInCategory="100" android:title="제목편집" android:showAsAction="never" />
+    <item android:id="@id/menu_settings2" android:orderInCategory="100" android:title="버킷리스트삭제" android:showAsAction="never" />
+</menu>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="relative">false</item>
+    <item type="id" name="textView2">false</item>
+    <item type="id" name="toggleButtonOnOff">false</item>
+    <item type="id" name="buttonColor1">false</item>
+    <item type="id" name="buttonColor2">false</item>
+    <item type="id" name="textViewPer">false</item>
+    <item type="id" name="seekBar1">false</item>
+    <item type="id" name="admobLayout">false</item>
+    <item type="id" name="adMobView">false</item>
+    <item type="id" name="adamLayout">false</item>
+    <item type="id" name="adamView">false</item>
+    <item type="id" name="adpostLayout">false</item>
+    <item type="id" name="adPost">false</item>
+    <item type="id" name="webView1">false</item>
+    <item type="id" name="menu_settings1">false</item>
+    <item type="id" name="menu_settings2">false</item>
+</resources>
