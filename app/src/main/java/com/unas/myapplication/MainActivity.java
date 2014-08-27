@@ -9,7 +9,6 @@ import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,29 +19,24 @@ import android.widget.ToggleButton;
 
 
 public class MainActivity extends Activity
-        implements View.OnClickListener
-{
+        implements View.OnClickListener {
     static MyDBHelper mDBHelper;
     public static MainActivity mThis;
     Button buttonColor1;
     Button buttonColor2;
     private boolean rBound = false;
-    private ServiceConnection rConnection = new ServiceConnection()
-    {
-        public void onServiceConnected(ComponentName paramAnonymousComponentName, IBinder paramAnonymousIBinder)
-        {
-            FilterService.LocalBinder localLocalBinder = (FilterService.LocalBinder)paramAnonymousIBinder;
+    private ServiceConnection rConnection = new ServiceConnection() {
+        public void onServiceConnected(ComponentName paramAnonymousComponentName, IBinder paramAnonymousIBinder) {
+            FilterService.LocalBinder localLocalBinder = (FilterService.LocalBinder) paramAnonymousIBinder;
             MainActivity.this.rService = localLocalBinder.getService();
             MainActivity.this.rBound = true;
-            if ((Common.FilterYN.equals("Y")) && (FilterService.vw == null))
-            {
+            if ((Common.FilterYN.equals("Y")) && (FilterService.vw == null)) {
                 MainActivity.this.startService(new Intent(MainActivity.mThis, FilterService.class));
                 MainActivity.this.rService.addView();
             }
         }
 
-        public void onServiceDisconnected(ComponentName paramAnonymousComponentName)
-        {
+        public void onServiceDisconnected(ComponentName paramAnonymousComponentName) {
             MainActivity.this.rBound = false;
         }
     };
@@ -51,28 +45,25 @@ public class MainActivity extends Activity
     TextView textViewPer;
     ToggleButton toggleButtonOnOff;
 
-    public void onClick(View paramView)
-    {
-        switch (paramView.getId())
-        {
+    public void onClick(View paramView) {
+        switch (paramView.getId()) {
             case 2131034120:
             default:
                 return;
             case 2131034119:
                 SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
-                if (this.toggleButtonOnOff.isChecked())
-                {
+                if (this.toggleButtonOnOff.isChecked()) {
                     this.rService.startNotification();
                     mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "Y");
                     startService(new Intent(this, FilterService.class));
                     this.rService.addView();
                 }
-                while (true)
-                {
+                while (true) {
                     localSQLiteDatabase.close();
-                    ((NotificationManager)getSystemService("notification")).cancelAll();
+                    ((NotificationManager) getSystemService("notification")).cancelAll();
                     this.rService.endNotification();
-                    mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
+                    //mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
+                    com.unas.myapplication.Common.OFFbue = true;
                     this.rService.removeView();
                     stopService(new Intent(this, FilterService.class));
                     return;
@@ -83,17 +74,16 @@ public class MainActivity extends Activity
     }
 
     @SuppressLint({"NewApi"})
-    public void onCreate(Bundle paramBundle)
-    {
+    public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(2130903040);
         mThis = this;
-        this.textViewPer = ((TextView)findViewById(2131034122));
-        this.toggleButtonOnOff = ((ToggleButton)findViewById(2131034119));
+        this.textViewPer = ((TextView) findViewById(2131034122));
+        this.toggleButtonOnOff = ((ToggleButton) findViewById(2131034119));
         this.toggleButtonOnOff.setOnClickListener(this);
-        this.buttonColor1 = ((Button)findViewById(2131034120));
+        this.buttonColor1 = ((Button) findViewById(2131034120));
         this.buttonColor1.setOnClickListener(this);
-        this.buttonColor2 = ((Button)findViewById(2131034121));
+        this.buttonColor2 = ((Button) findViewById(2131034121));
         this.buttonColor2.setOnClickListener(this);
         mDBHelper = new MyDBHelper(this, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
@@ -108,7 +98,7 @@ public class MainActivity extends Activity
         int j = Common.converToDecimalFromHex(Common.BgColor);
         this.buttonColor1.setBackgroundColor(j);
         localSQLiteDatabase.close();
-        this.seekBar1 = ((SeekBar)findViewById(2131034123));
+        this.seekBar1 = ((SeekBar) findViewById(2131034123));
         this.seekBar1.setMax(100);
         this.seekBar1.setProgress(i);
         this.seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -136,29 +126,25 @@ public class MainActivity extends Activity
         });
     }
 
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
     }
 
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
     }
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
     }
 
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
+
         bindService(new Intent(this, FilterService.class), this.rConnection, 1);
     }
 
-    public void onWindowFocusChanged(boolean paramBoolean)
-    {
+    public void onWindowFocusChanged(boolean paramBoolean) {
         super.onWindowFocusChanged(paramBoolean);
     }
 }

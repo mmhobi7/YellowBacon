@@ -16,7 +16,7 @@
             <View android:layout_width="10.0dip" android:layout_height="wrap_content" />
             <Button android:id="@id/buttonColor1" android:background="#ff000000" android:layout_width="50.0dip" android:layout_height="fill_parent" android:text="" />
             <View android:layout_width="10.0dip" android:layout_height="wrap_content" />
-            <Button android:id="@id/buttonColor2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/s5" />
+            <Button android:id="@+id/buttonColor2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/s5" />
         </LinearLayout>
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="20.0">
             <TextView android:textSize="39.0pt" android:gravity="center" android:layout_gravity="center" android:id="@id/textViewPer" android:padding="3.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="50%" />

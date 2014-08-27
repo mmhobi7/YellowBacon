@@ -125,7 +125,6 @@
     <public type="string" name="s5" id="0x7f060022" />
     <public type="string" name="Cancel" id="0x7f060023" />
     <public type="string" name="Select" id="0x7f060024" />
-    <public type="integer" name="google_play_services_version" id="0x7f070000" />
     <public type="dimen" name="padding_small" id="0x7f080000" />
     <public type="dimen" name="padding_medium" id="0x7f080001" />
     <public type="dimen" name="padding_large" id="0x7f080002" />
