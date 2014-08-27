@@ -126,7 +126,7 @@ public class MainActivity extends Activity
                     int i = paramAnonymousSeekBar.getProgress();
                     MainActivity.this.textViewPer.setText(i + "%");
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
-                    //MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Alpha", i);
+                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Alpha", i);
                     Common.Alpha = 200 - i * 2;
                     MainActivity.this.rService.setAlpha(Common.Alpha);
                     return;

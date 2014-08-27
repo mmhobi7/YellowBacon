@@ -1,9 +1,12 @@
 package com.unas.myapplication;
 
 import android.database.Cursor;
+import android.graphics.Color;
 
 /**
  * Created by aaahh on 8/26/14.
+ *
+ * Dont even remember where this is from...
  */
 public class Common
 {
@@ -46,9 +49,9 @@ public class Common
 
     public static int converToDecimalFromHex(String s)
     {
-        //return Color.rgb(cH(s.substring(1, 3)), cH(s.substring(3, 5)), cH(s.substring(5, 7)));
-        return 0;
+        return Color.rgb(cH(s.substring(1, 3)), cH(s.substring(3, 5)), cH(s.substring(5, 7)));
     }
+
 
     public static String toStringYN(boolean flag)
     {
