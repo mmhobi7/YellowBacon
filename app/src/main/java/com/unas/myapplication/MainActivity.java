@@ -57,12 +57,13 @@ public class MainActivity extends Activity
                     mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "Y");
                     startService(new Intent(this, FilterService.class));
                     this.rService.addView();
+                    return;
                 }
-                while (true) {
-                    localSQLiteDatabase.close();
+                //somewhat messy...
+                if (!(this.toggleButtonOnOff.isChecked())) {
                     ((NotificationManager) getSystemService("notification")).cancelAll();
                     this.rService.endNotification();
-                    //mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
+                    mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
                     this.rService.removeView();
                     stopService(new Intent(this, FilterService.class));
                     return;
@@ -139,7 +140,6 @@ public class MainActivity extends Activity
 
     protected void onStart() {
         super.onStart();
-
         bindService(new Intent(this, FilterService.class), this.rConnection, 1);
     }
 

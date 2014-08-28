@@ -15,6 +15,7 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
+
 /**
  * Created by aaahh on 8/26/14.
  */
@@ -101,14 +102,13 @@ public class FilterService extends Service
 
     public void startNotification()
     {
-        //played with...
         Intent localIntent = new Intent(getApplicationContext(), MainActivity.class);
         localIntent.addFlags(872415232);
         PendingIntent localPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, localIntent, 0);
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager n = ((NotificationManager)getSystemService("notification"));
         Notification localNotification = new Notification(2130837531, "Screen Filter", System.currentTimeMillis());
         localNotification.setLatestEventInfo(this, getResources().getString(2131099674), "Screen Filter", localPendingIntent);
-        mNotificationManager.notify(1, localNotification);
+        n.notify(1, localNotification);
         startForeground(1, localNotification);
     }
 
