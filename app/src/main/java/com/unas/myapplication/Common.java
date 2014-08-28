@@ -5,8 +5,6 @@ import android.graphics.Color;
 
 /**
  * Created by aaahh on 8/26/14.
- *
- * Dont even remember where this is from...
  */
 public class Common
 {

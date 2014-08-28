@@ -65,10 +65,8 @@ public class Color extends Activity {
         webView.getSettings().setAllowFileAccess(true);
         webView.setBackgroundColor(0);
         //TODO: HERE IS THE BUG \/
-        webView.addJavascriptInterface(new Object()
-        {
-            public void setCancel()
-            {
+        webView.addJavascriptInterface(new Object() {
+            public void setCancel() {
                 Log.d("MainActivity", "brwwo");
                 Message localMessage = Color.this.setCancel.obtainMessage();
                 Color.this.setCancel.sendMessage(localMessage);
