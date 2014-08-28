@@ -4,12 +4,14 @@ package com.unas.myapplication;
  * Created by aaahh on 8/26/14. edited some
  */
 import android.app.Activity;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Window;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -64,25 +66,29 @@ public class Color extends Activity {
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
         webView.setBackgroundColor(0);
-        //TODO: HERE IS THE BUG \/
-        webView.addJavascriptInterface(new Object() {
-            public void setCancel() {
-                Log.d("MainActivity", "brwwo");
-                Message localMessage = Color.this.setCancel.obtainMessage();
-                Color.this.setCancel.sendMessage(localMessage);
-            }
-
-            public void setColor(String paramAnonymousString) {
-                Log.d("MainActivity", "bro2");
-
-                Common.BgColor = "#" + paramAnonymousString.replaceAll("#", "");
-                Message localMessage = Color.this.setColor.obtainMessage();
-                Color.this.setColor.sendMessage(localMessage);
-            }
-        }
-                , "android");
+        webView.addJavascriptInterface(new JavaScriptInterface(mThis), "android");
         goUrl();
         getWindow().setFlags(4, 4);
+    }
+
+    public class JavaScriptInterface {
+        Context mContext;
+        JavaScriptInterface(Context c) {
+            mContext = c;
+        }
+        //Both of these are used...
+        @JavascriptInterface
+        public void setCancel() {
+            Message localMessage = Color.this.setCancel.obtainMessage();
+            Color.this.setCancel.sendMessage(localMessage);
+        }
+
+        @JavascriptInterface
+        public void setColor(String paramAnonymousString) {
+            Common.BgColor = "#" + paramAnonymousString.replaceAll("#", "");
+            Message localMessage = Color.this.setColor.obtainMessage();
+            Color.this.setColor.sendMessage(localMessage);
+        }
     }
 
     public void onDestroy() {
