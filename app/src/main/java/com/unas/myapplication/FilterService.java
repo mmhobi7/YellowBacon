@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,10 +29,14 @@ public class FilterService extends Service
     {
         vw = new View(this);
         Display localDisplay = ((WindowManager)getSystemService("window")).getDefaultDisplay();
+        Log.d("res", String.valueOf(localDisplay.getWidth()));
+        Log.d("res2", String.valueOf(localDisplay.getHeight()));
         localDisplay.getWidth();
-        WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams(10 * localDisplay.getWidth(), 10 * localDisplay.getHeight(), 2006, 1288, -3);
+        int height = 50;
+        Log.d("h", String.valueOf(height));
+        WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams(10 * localDisplay.getWidth(), 10 * height, 2006, 1288, -3);
         WindowManager localWindowManager = (WindowManager)getSystemService("window");
-        localLayoutParams.gravity = 53;
+        localLayoutParams.gravity = 80;
         localLayoutParams.x = -100;
         localLayoutParams.y = -100;
         mDBHelper = new MyDBHelper(mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);

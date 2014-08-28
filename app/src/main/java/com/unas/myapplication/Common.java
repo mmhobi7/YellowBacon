@@ -20,7 +20,6 @@ public class Common
     public static String pattern[] = {
             ".txt", ".ini", ".csv", ".js", ".css", ".xml", ".config"
     };
-    public static boolean OFFbue = false;
 
     public Common()
     {

@@ -64,7 +64,7 @@ public class Color extends Activity {
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
         webView.setBackgroundColor(0);
-        Log.d("MainActivity", "bro");
+        //TODO: HERE IS THE BUG \/
         webView.addJavascriptInterface(new Object()
         {
             public void setCancel()

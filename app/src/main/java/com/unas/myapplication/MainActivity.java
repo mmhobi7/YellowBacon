@@ -63,7 +63,6 @@ public class MainActivity extends Activity
                     ((NotificationManager) getSystemService("notification")).cancelAll();
                     this.rService.endNotification();
                     //mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
-                    com.unas.myapplication.Common.OFFbue = true;
                     this.rService.removeView();
                     stopService(new Intent(this, FilterService.class));
                     return;
