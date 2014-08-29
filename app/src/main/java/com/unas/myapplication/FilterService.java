@@ -25,21 +25,17 @@ public class FilterService extends Service
     public static FilterService mThis;
     public static View vw;
     private final IBinder rBinder = new LocalBinder();
+    public WindowManager.LayoutParams localLayoutParams;
+    public WindowManager localWindowManager;
 
     public void addView()
     {
         vw = new View(this);
         Display localDisplay = ((WindowManager)getSystemService("window")).getDefaultDisplay();
-        Log.d("res", String.valueOf(localDisplay.getWidth()));
-        Log.d("res2", String.valueOf(localDisplay.getHeight()));
-        localDisplay.getWidth();
-        int height = 50;
-        Log.d("h", String.valueOf(height));
-        WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams(10 * localDisplay.getWidth(), 10 * height, 2006, 1288, -3);
-        WindowManager localWindowManager = (WindowManager)getSystemService("window");
-        localLayoutParams.gravity = 80;
-        localLayoutParams.x = -100;
-        localLayoutParams.y = -100;
+        Log.d("d:", String.valueOf(localDisplay.getHeight()));
+        localLayoutParams = new WindowManager.LayoutParams( 1080, 50, 2006, 1288, -3);
+        localWindowManager = (WindowManager)getSystemService("window");
+        localLayoutParams.y = 50;
         mDBHelper = new MyDBHelper(mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
@@ -83,9 +79,29 @@ public class FilterService extends Service
 
     public void setAlpha(int paramInt)
     {
+        Log.d("g", "qq");
         if (vw == null)
             return;
         vw.getBackground().setAlpha(paramInt);
+    }
+
+    public void setHeight (float paramInt)
+    {
+        if (vw == null) {
+            return;
+        } else {
+            localLayoutParams.height = Common.Height;
+            localWindowManager.updateViewLayout(vw, localLayoutParams);
+        }
+    }
+
+    public void setArea (){
+        if (vw == null) {
+            return;
+        } else {
+            localLayoutParams.x = Common.Area;
+            localWindowManager.updateViewLayout(vw, localLayoutParams);
+        }
     }
 
     public void setConfig()

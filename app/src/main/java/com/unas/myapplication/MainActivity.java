@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +48,8 @@ public class MainActivity extends Activity
     SeekBar seekBar1;
     TextView textViewPer;
     ToggleButton toggleButtonOnOff;
+    SeekBar seekBar2;
+    SeekBar seekBar3;
 
     public void onClick(View paramView) {
         switch (paramView.getId()) {
@@ -102,7 +106,7 @@ public class MainActivity extends Activity
         localSQLiteDatabase.close();
         this.seekBar1 = ((SeekBar) findViewById(2131034123));
         this.seekBar1.setMax(100);
-        this.seekBar1.setProgress(i);
+        this.seekBar1.setProgress(50);
         this.seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 MainActivity.this.textViewPer.setText(paramAnonymousInt + "%");
@@ -115,6 +119,7 @@ public class MainActivity extends Activity
 
             public void onStopTrackingTouch(SeekBar paramAnonymousSeekBar) {
                 try {
+
                     int i = paramAnonymousSeekBar.getProgress();
                     MainActivity.this.textViewPer.setText(i + "%");
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
@@ -122,10 +127,77 @@ public class MainActivity extends Activity
                     Common.Alpha = 200 - i * 2;
                     MainActivity.this.rService.setAlpha(Common.Alpha);
                     return;
+
                 } catch (IllegalStateException localIllegalStateException) {
                 }
             }
         });
+
+        this.seekBar2 = ((SeekBar) findViewById(R.id.seekBar2));
+        this.seekBar2.setMax(100);
+        this.seekBar2.setProgress(50);
+        this.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
+                Common.Height = (int) ((paramAnonymousInt/100f)* 1920f);
+                MainActivity.this.rService.setHeight(Common.Height);
+            }
+
+            public void onStartTrackingTouch(SeekBar paramAnonymousSeekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar paramAnonymousSeekBar) {
+                try {
+                    int i = paramAnonymousSeekBar.getProgress();
+                    SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
+                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Height", (Integer.toString(i)));
+                    Common.Height = (int) ((i/100f)* 1920f);
+                    Log.d("aaas", String.valueOf(Common.Height));
+                    MainActivity.this.rService.setHeight(Common.Height);
+                    return;
+
+                } catch (IllegalStateException localIllegalStateException) {
+                }
+            }
+        });
+
+        this.seekBar3 = ((SeekBar) findViewById(R.id.seekBar3));
+        this.seekBar3.setMax(100);
+        this.seekBar3.setProgress(50);
+        this.seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
+                Common.Area = (int) ((((paramAnonymousInt-50)*2)/100f)* 960 *-1);
+                Log.d("p", String.valueOf(Common.Height/1920));
+                MainActivity.this.rService.localLayoutParams.y = (Common.Area);
+                    Log.d("aaaaaaa", String.valueOf(MainActivity.this.rService.localLayoutParams.y));
+                    MainActivity.this.rService.localWindowManager.updateViewLayout(MainActivity.this.rService.vw, MainActivity.this.rService.localLayoutParams);
+                }
+
+            public void onStartTrackingTouch(SeekBar paramAnonymousSeekBar) {
+            }
+            public void onStopTrackingTouch(SeekBar paramAnonymousSeekBar) {
+                /*
+                try {
+                    int i = paramAnonymousSeekBar.getProgress();
+                    SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
+                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(i)));
+                    Common.Area = (int) ((i/100f)* 1920f);
+                    MainActivity.this.rService.setArea();
+                    return;
+
+                 catch (IllegalStateException localIllegalStateException) {
+                }
+                */
+            }
+        });
+
+
+
+    }
+
+    public void Cikcs(View v1){
+        MainActivity.this.rService.localLayoutParams.y = ((MainActivity.this.rService.localLayoutParams.y)-50);
+        Log.d("aaaaaaa", String.valueOf(MainActivity.this.rService.localLayoutParams.y));
+        MainActivity.this.rService.localWindowManager.updateViewLayout(MainActivity.this.rService.vw, MainActivity.this.rService.localLayoutParams);
     }
 
     public void onDestroy() {

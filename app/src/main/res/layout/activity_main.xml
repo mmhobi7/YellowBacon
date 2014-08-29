@@ -28,7 +28,16 @@
 
             <TextView android:textAppearance="?android:textAppearanceMedium" android:gravity="center" android:layout_gravity="center_horizontal" android:id="@id/textView2" android:padding="3.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/s3" />
 
-            <SeekBar android:id="@id/seekBar1" android:paddingLeft="30.0dip" android:paddingRight="30.0dip" android:layout_width="match_parent" android:layout_height="wrap_content" android:maxHeight="5.0dip" android:progressDrawable="@drawable/sickbar" android:minHeight="5.0dip" android:thumb="@drawable/thumb" />
+            <SeekBar
+                android:id="@id/seekBar1"
+                android:paddingLeft="30.0dip"
+                android:paddingRight="30.0dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxHeight="5.0dip"
+                android:progressDrawable="@drawable/sickbar"
+                android:minHeight="5.0dip"
+                android:thumb="@drawable/thumb" />
 
             <TextView
                 android:textAppearance="?android:textAppearanceMedium"
@@ -62,7 +71,7 @@
                 android:text="Area" />
 
             <SeekBar
-                android:id="@+id/seekBar"
+                android:id="@+id/seekBar3"
                 android:paddingLeft="30.0dip"
                 android:paddingRight="30.0dip"
                 android:layout_width="match_parent"
