@@ -165,10 +165,11 @@ public class MainActivity extends Activity
         this.seekBar3.setProgress(50);
         this.seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
-                Common.Area = (int) ((((paramAnonymousInt-50)*2)/100f)* 960 *-1);
+                if (FilterService.vw == null) {
+                } else {
+                    Common.Area = (int) ((((paramAnonymousInt-50)*2)/100f)* 960 *-1);
                 Log.d("p", String.valueOf(Common.Height/1920));
                 MainActivity.this.rService.localLayoutParams.y = (Common.Area);
-                    Log.d("aaaaaaa", String.valueOf(MainActivity.this.rService.localLayoutParams.y));
                     MainActivity.this.rService.localWindowManager.updateViewLayout(MainActivity.this.rService.vw, MainActivity.this.rService.localLayoutParams);
                 }
 
