@@ -167,11 +167,12 @@ public class MainActivity extends Activity
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 if (FilterService.vw == null) {
                 } else {
-                    Common.Area = (int) ((((paramAnonymousInt-50)*2)/100f)* 960 *-1);
-                Log.d("p", String.valueOf(Common.Height/1920));
-                MainActivity.this.rService.localLayoutParams.y = (Common.Area);
+                    Common.Area = (int) ((((paramAnonymousInt - 50) * 2) / 100f) * 960 * -1);
+                    Log.d("p", String.valueOf(Common.Height / 1920));
+                    MainActivity.this.rService.localLayoutParams.y = (Common.Area);
                     MainActivity.this.rService.localWindowManager.updateViewLayout(MainActivity.this.rService.vw, MainActivity.this.rService.localLayoutParams);
                 }
+            }
 
             public void onStartTrackingTouch(SeekBar paramAnonymousSeekBar) {
             }
