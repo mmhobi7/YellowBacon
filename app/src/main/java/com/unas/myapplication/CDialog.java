@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 
 /**
  * Created by aaahh on 8/26/14.
+ * Don't know what this is... Theres alot of random files i have no clue why the exsits...
  */
 public class CDialog {
 
