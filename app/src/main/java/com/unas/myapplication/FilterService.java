@@ -42,7 +42,7 @@ public class FilterService extends Service
         Display localDisplay = ((WindowManager)getSystemService("window")).getDefaultDisplay();
         localLayoutParams = new WindowManager.LayoutParams( 1080, 50, 2006, 1288, -3);
         localWindowManager = (WindowManager)getSystemService("window");
-        localLayoutParams.y = 50;
+        localLayoutParams.y = 0;
         int i = Common.converToDecimalFromHex(Common.BgColor);
         vw.setBackgroundColor(i);
         vw.getBackground().setAlpha(Common.Alpha);
