@@ -9,16 +9,11 @@ import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
@@ -138,7 +133,7 @@ public class MainActivity extends Activity
         this.seekBar2.setProgress(50);
         this.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
-                Common.Height = (int) ((paramAnonymousInt/100f)* 1920f);
+                Common.Height = (int) ((paramAnonymousInt / 100f) * 1920f);
                 MainActivity.this.rService.setHeight(Common.Height);
             }
 
@@ -150,7 +145,7 @@ public class MainActivity extends Activity
                     int i = paramAnonymousSeekBar.getProgress();
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
                     MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Height", (Integer.toString(i)));
-                    Common.Height = (int) ((i/100f)* 1920f);
+                    Common.Height = (int) ((i / 100f) * 1920f);
                     Log.d("aaas", String.valueOf(Common.Height));
                     MainActivity.this.rService.setHeight(Common.Height);
                     return;
@@ -168,7 +163,6 @@ public class MainActivity extends Activity
                 if (FilterService.vw == null) {
                 } else {
                     Common.Area = (int) ((((paramAnonymousInt - 50) * 2) / 100f) * 960 * -1);
-                    Log.d("p", String.valueOf(Common.Height / 1920));
                     MainActivity.this.rService.localLayoutParams.y = (Common.Area);
                     MainActivity.this.rService.localWindowManager.updateViewLayout(MainActivity.this.rService.vw, MainActivity.this.rService.localLayoutParams);
                 }
@@ -176,30 +170,20 @@ public class MainActivity extends Activity
 
             public void onStartTrackingTouch(SeekBar paramAnonymousSeekBar) {
             }
-            public void onStopTrackingTouch(SeekBar paramAnonymousSeekBar) {
-                /*
-                try {
-                    int i = paramAnonymousSeekBar.getProgress();
-                    SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
-                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(i)));
-                    Common.Area = (int) ((i/100f)* 1920f);
-                    MainActivity.this.rService.setArea();
-                    return;
 
-                 catch (IllegalStateException localIllegalStateException) {
-                }
-                */
+            public void onStopTrackingTouch(SeekBar paramAnonymousSeekBar) {
+                int i = paramAnonymousSeekBar.getProgress();
+                SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
+                MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(i)));
+                Common.Area = (int) ((((i - 50) * 2) / 100f) * 960 * -1);
+                if (FilterService.vw == null) {
+                } else {
+                    Common.Area = (int) ((((i - 50) * 2) / 100f) * 960 * -1);
+                    MainActivity.this.rService.localLayoutParams.y = (Common.Area);
+                    MainActivity.this.rService.localWindowManager.updateViewLayout(MainActivity.this.rService.vw, MainActivity.this.rService.localLayoutParams);
+                }                return;
             }
         });
-
-
-
-    }
-
-    public void Cikcs(View v1){
-        MainActivity.this.rService.localLayoutParams.y = ((MainActivity.this.rService.localLayoutParams.y)-50);
-        Log.d("aaaaaaa", String.valueOf(MainActivity.this.rService.localLayoutParams.y));
-        MainActivity.this.rService.localWindowManager.updateViewLayout(MainActivity.this.rService.vw, MainActivity.this.rService.localLayoutParams);
     }
 
     public void onDestroy() {

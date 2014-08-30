@@ -17,7 +17,7 @@ import android.view.WindowManager;
 
 
 /**
- * Created by aaahh on 8/26/14.
+ * Created by aaahh on 8/26/14. .
  */
 public class FilterService extends Service
 {
@@ -30,17 +30,19 @@ public class FilterService extends Service
 
     public void addView()
     {
-        vw = new View(this);
-        Display localDisplay = ((WindowManager)getSystemService("window")).getDefaultDisplay();
-        Log.d("d:", String.valueOf(localDisplay.getHeight()));
-        localLayoutParams = new WindowManager.LayoutParams( 1080, 50, 2006, 1288, -3);
-        localWindowManager = (WindowManager)getSystemService("window");
-        localLayoutParams.y = 50;
         mDBHelper = new MyDBHelper(mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         Common.Alpha = 200 - 2 * Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
+        Common.Height = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
+        Common.Area = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
+        Log.d("p", String.valueOf(Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))));
         localSQLiteDatabase.close();
+        vw = new View(this);
+        Display localDisplay = ((WindowManager)getSystemService("window")).getDefaultDisplay();
+        localLayoutParams = new WindowManager.LayoutParams( 1080, 50, 2006, 1288, -3);
+        localWindowManager = (WindowManager)getSystemService("window");
+        localLayoutParams.y = 50;
         int i = Common.converToDecimalFromHex(Common.BgColor);
         vw.setBackgroundColor(i);
         vw.getBackground().setAlpha(Common.Alpha);
@@ -85,10 +87,9 @@ public class FilterService extends Service
         vw.getBackground().setAlpha(paramInt);
     }
 
-    public void setHeight (float paramInt)
+    public void setHeight(int height)
     {
         if (vw == null) {
-            return;
         } else {
             localLayoutParams.height = Common.Height;
             localWindowManager.updateViewLayout(vw, localLayoutParams);
@@ -97,7 +98,6 @@ public class FilterService extends Service
 
     public void setArea (){
         if (vw == null) {
-            return;
         } else {
             localLayoutParams.x = Common.Area;
             localWindowManager.updateViewLayout(vw, localLayoutParams);
@@ -110,6 +110,8 @@ public class FilterService extends Service
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         Common.Alpha = 200 - 2 * Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
+        Common.Height = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
+        Common.Area = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
         int i = Common.converToDecimalFromHex(Common.BgColor);
         vw.setBackgroundColor(i);
         vw.getBackground().setAlpha(Common.Alpha);
