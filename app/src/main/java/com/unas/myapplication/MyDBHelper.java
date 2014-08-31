@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyDBHelper extends SQLiteOpenHelper {
-    public static String dbNm = "eonFilter.db";
+    public static String dbNm = "filter.db";
     public static int dbVer = 1;
 
     public MyDBHelper(Context paramContext, String paramString, SQLiteDatabase.CursorFactory paramCursorFactory, int paramInt) {
@@ -35,6 +35,8 @@ public class MyDBHelper extends SQLiteOpenHelper {
         putKeyData(paramSQLiteDatabase, "FilterYN", "N");
         putKeyData(paramSQLiteDatabase, "BgColor", "#000000");
         putKeyData(paramSQLiteDatabase, "Alpha", "50");
+        putKeyData(paramSQLiteDatabase, "Height", "50");
+        putKeyData(paramSQLiteDatabase, "Area", "0");
     }
 
     public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2) {

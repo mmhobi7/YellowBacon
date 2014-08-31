@@ -16,6 +16,8 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
+import java.net.CookieHandler;
+
 
 /**
  * Created by aaahh on 8/26/14. .
@@ -36,24 +38,24 @@ public class FilterService extends Service
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         Common.Alpha = 200 - 2 * Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
-        Common.Height = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
-        //Common.Area = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
-        Log.d("p", String.valueOf(Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))));
+        Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height")))/100f)*1920f);
+        Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area")))- 50) * 2) / 100f)) * 960 * -1);
         localSQLiteDatabase.close();
         vw = new View(this);
         Display localDisplay = ((WindowManager)getSystemService("window")).getDefaultDisplay();
-        localLayoutParams = new WindowManager.LayoutParams( 1080, Common.Height, 2006, 1288, -3);
+        localLayoutParams = new WindowManager.LayoutParams( 1080, 1920, 2006, 1288, -3);
         localWindowManager = (WindowManager)getSystemService("window");
-        localLayoutParams.y = 0;
-        int i = Common.converToDecimalFromHex(Common.BgColor);
-        Log.d("f", String.valueOf(i));
-        Log.d("sf", Common.BgColor);
+        localLayoutParams.height = Common.Height;
+        localLayoutParams.y = Common.Area;
+        int a = Common.converToDecimalFromHex(Common.BgColor);
+//        Log.d("f", String.valueOf(i));
+  //      Log.d("sf", Common.BgColor);
         //gt = new GradientDrawable();
         //gt.setShape(0);
         //int colors[] = { 0xff255779 , Integer.parseInt(Common.BgColor), 0xffa6c0cd };
       //  gt.setColor();
         //vw.setBackground();
-        vw.setBackgroundColor(i);
+        vw.setBackgroundColor(a);
         vw.getBackground().setAlpha(Common.Alpha);
         localWindowManager.addView(vw, localLayoutParams);
     }
@@ -100,7 +102,7 @@ public class FilterService extends Service
     {
         if (vw == null) {
         } else {
-            localLayoutParams.height = paramInt;
+            localLayoutParams.height = (paramInt);
             localWindowManager.updateViewLayout(vw, localLayoutParams);
         }
     }
@@ -109,7 +111,7 @@ public class FilterService extends Service
         if (vw == null) {
         } else {
             localLayoutParams.y = (paramInt);
-            localWindowManager.updateViewLayout(FilterService.vw, localLayoutParams);
+            localWindowManager.updateViewLayout(vw, localLayoutParams);
         }
     }
 
@@ -119,10 +121,13 @@ public class FilterService extends Service
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         Common.Alpha = 200 - 2 * Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
-        Common.Height = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
-        Common.Area = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
-        int i = Common.converToDecimalFromHex(Common.BgColor);
-        vw.setBackgroundColor(i);
+        Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height")))/100f)*1920f);
+        Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area")))- 50) * 2) / 100f)) * 960 * -1);
+        localLayoutParams.height = (Common.Height);
+        localLayoutParams.y = (Common.Area);
+        localWindowManager.updateViewLayout(vw, localLayoutParams);
+        int a = Common.converToDecimalFromHex(Common.BgColor);
+        vw.setBackgroundColor(a);
         vw.getBackground().setAlpha(Common.Alpha);
         localSQLiteDatabase.close();
     }

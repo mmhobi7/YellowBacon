@@ -12,7 +12,7 @@ public class Common
     public static int Alpha = 50;
     public static int Height = 50;
     public static int Area = 0;
-    public static int AreaChange;
+    public static boolean passedonce;
     public static String BgColor = "#FFFFFF";
     public static int ColorType = -1;
     public static String FgColor = "#000000";

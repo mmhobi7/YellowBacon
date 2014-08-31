@@ -9,7 +9,6 @@ import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -90,9 +89,13 @@ public class MainActivity extends Activity
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
         Common.FilterYN = mDBHelper.getKeyData(localSQLiteDatabase, "FilterYN");
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
-        int i = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
-        this.textViewPer.setText(i + "%");
-        Common.Alpha = 200 - i * 2;
+        int a = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
+        this.textViewPer.setText(a + "%");
+        Common.Alpha = 200 - a * 2;
+        int b = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
+        Common.Height = (int) ((b / 100f) * 1920f);
+        int c = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
+        Common.Area = (int) ((((c - 50) * 2) / 100f) * 960 * -1);
         this.toggleButtonOnOff.setChecked(false);
         if (Common.FilterYN.equals("Y"))
             this.toggleButtonOnOff.setChecked(true);
@@ -101,7 +104,12 @@ public class MainActivity extends Activity
         localSQLiteDatabase.close();
         this.seekBar1 = ((SeekBar) findViewById(2131034123));
         this.seekBar1.setMax(100);
-        this.seekBar1.setProgress(50);
+        if (Common.passedonce) {
+            this.seekBar1.setProgress(a);
+        } else {
+            this.seekBar1.setProgress(50);
+            Common.passedonce = true;
+        }
         this.seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 MainActivity.this.textViewPer.setText(paramAnonymousInt + "%");
@@ -115,22 +123,25 @@ public class MainActivity extends Activity
             public void onStopTrackingTouch(SeekBar paramAnonymousSeekBar) {
                 try {
 
-                    int i = paramAnonymousSeekBar.getProgress();
-                    MainActivity.this.textViewPer.setText(i + "%");
+                    int a = paramAnonymousSeekBar.getProgress();
+                    MainActivity.this.textViewPer.setText(a + "%");
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
-                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Alpha", (Integer.toString(i)));
-                    Common.Alpha = 200 - i * 2;
+                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Alpha", (Integer.toString(a)));
+                    Common.Alpha = 200 - a * 2;
                     MainActivity.this.rService.setAlpha(Common.Alpha);
-                    return;
-
-                } catch (IllegalStateException localIllegalStateException) {
+                } catch (IllegalStateException ignored) {
                 }
             }
         });
 
         this.seekBar2 = ((SeekBar) findViewById(R.id.seekBar2));
         this.seekBar2.setMax(100);
-        this.seekBar2.setProgress(50);
+        if (Common.passedonce) {
+            this.seekBar2.setProgress(b);
+        } else {
+            this.seekBar2.setProgress(50);
+            Common.passedonce = true;
+        }
         this.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 Common.Height = (int) ((paramAnonymousInt / 100f) * 1920f);
@@ -142,10 +153,10 @@ public class MainActivity extends Activity
 
             public void onStopTrackingTouch(SeekBar paramAnonymousSeekBar) {
                 try {
-                    int i = paramAnonymousSeekBar.getProgress();
+                    int b = paramAnonymousSeekBar.getProgress();
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
-                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Height", (Integer.toString(i)));
-                    Common.Height = (int) ((i / 100f) * 1920f);
+                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Height", (Integer.toString(b)));
+                    Common.Height = (int) ((b / 100f) * 1920f);
                     MainActivity.this.rService.setHeight(Common.Height);
                 } catch (IllegalStateException ignored) {
                 }
@@ -154,25 +165,32 @@ public class MainActivity extends Activity
 
         this.seekBar3 = ((SeekBar) findViewById(R.id.seekBar3));
         this.seekBar3.setMax(100);
-        this.seekBar3.setProgress(50);
+        if (Common.passedonce) {
+            this.seekBar3.setProgress(c);
+        } else {
+            this.seekBar3.setProgress(50);
+            Common.passedonce = true;
+        }
         this.seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 Common.Area = (int) ((((paramAnonymousInt - 50) * 2) / 100f) * 960 * -1);
-                MainActivity.this.rService.setArea(Common.Height);
+                MainActivity.this.rService.setArea(Common.Area);
             }
 
             public void onStartTrackingTouch(SeekBar paramAnonymousSeekBar) {
             }
 
             public void onStopTrackingTouch(SeekBar paramAnonymousSeekBar) {
-                int i = paramAnonymousSeekBar.getProgress();
+                int c = paramAnonymousSeekBar.getProgress();
                 SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
-                MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(i)));
-                Common.Area = (int) ((((i - 50) * 2) / 100f) * 960 * -1);
-                MainActivity.this.rService.setHeight(Common.Height);
+                MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(c)));
+                Common.Area = (int) ((((c - 50) * 2) / 100f) * 960 * -1);
+                MainActivity.this.rService.setArea(Common.Area);
             }
         });
+
     }
+
 
     public void onDestroy() {
         super.onDestroy();
