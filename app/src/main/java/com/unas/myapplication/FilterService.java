@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class FilterService extends Service
     static MyDBHelper mDBHelper;
     public static FilterService mThis;
     public static View vw;
+    public static GradientDrawable gt;
     private final IBinder rBinder = new LocalBinder();
     public WindowManager.LayoutParams localLayoutParams;
     public WindowManager localWindowManager;
@@ -35,15 +37,22 @@ public class FilterService extends Service
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         Common.Alpha = 200 - 2 * Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
         Common.Height = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
-        Common.Area = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
-        Log.d("p", String.valueOf(Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))));
+        //Common.Area = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
+        Log.d("p", String.valueOf(Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))));
         localSQLiteDatabase.close();
         vw = new View(this);
         Display localDisplay = ((WindowManager)getSystemService("window")).getDefaultDisplay();
-        localLayoutParams = new WindowManager.LayoutParams( 1080, 50, 2006, 1288, -3);
+        localLayoutParams = new WindowManager.LayoutParams( 1080, Common.Height, 2006, 1288, -3);
         localWindowManager = (WindowManager)getSystemService("window");
         localLayoutParams.y = 0;
         int i = Common.converToDecimalFromHex(Common.BgColor);
+        Log.d("f", String.valueOf(i));
+        Log.d("sf", Common.BgColor);
+        //gt = new GradientDrawable();
+        //gt.setShape(0);
+        //int colors[] = { 0xff255779 , Integer.parseInt(Common.BgColor), 0xffa6c0cd };
+      //  gt.setColor();
+        //vw.setBackground();
         vw.setBackgroundColor(i);
         vw.getBackground().setAlpha(Common.Alpha);
         localWindowManager.addView(vw, localLayoutParams);
@@ -81,26 +90,26 @@ public class FilterService extends Service
 
     public void setAlpha(int paramInt)
     {
-        Log.d("g", "qq");
-        if (vw == null)
+        if (vw == null) {
             return;
+        }
         vw.getBackground().setAlpha(paramInt);
     }
 
-    public void setHeight(int height)
+    public void setHeight(int paramInt)
     {
         if (vw == null) {
         } else {
-            localLayoutParams.height = Common.Height;
+            localLayoutParams.height = paramInt;
             localWindowManager.updateViewLayout(vw, localLayoutParams);
         }
     }
 
-    public void setArea (){
+    public void setArea (int paramInt){
         if (vw == null) {
         } else {
-            localLayoutParams.x = Common.Area;
-            localWindowManager.updateViewLayout(vw, localLayoutParams);
+            localLayoutParams.y = (paramInt);
+            localWindowManager.updateViewLayout(FilterService.vw, localLayoutParams);
         }
     }
 
