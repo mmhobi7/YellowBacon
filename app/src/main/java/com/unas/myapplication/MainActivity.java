@@ -44,6 +44,7 @@ public class MainActivity extends Activity
     ToggleButton toggleButtonOnOff;
     SeekBar seekBar2;
     SeekBar seekBar3;
+    ToggleButton toggleButtonOnOff2;
 
     public void onClick(View paramView) {
         switch (paramView.getId()) {
@@ -81,6 +82,8 @@ public class MainActivity extends Activity
         this.textViewPer = ((TextView) findViewById(2131034122));
         this.toggleButtonOnOff = ((ToggleButton) findViewById(2131034119));
         this.toggleButtonOnOff.setOnClickListener(this);
+        this.toggleButtonOnOff2 = ((ToggleButton) findViewById(R.id.toggleButtonOnOff2));
+        this.toggleButtonOnOff2.setOnClickListener(this);
         this.buttonColor1 = ((Button) findViewById(2131034120));
         this.buttonColor1.setOnClickListener(this);
         this.buttonColor2 = ((Button) findViewById(2131034121));
@@ -99,6 +102,7 @@ public class MainActivity extends Activity
         this.toggleButtonOnOff.setChecked(false);
         if (Common.FilterYN.equals("Y"))
             this.toggleButtonOnOff.setChecked(true);
+        this.toggleButtonOnOff2.setChecked(true);
         int j = Common.converToDecimalFromHex(Common.BgColor);
         this.buttonColor1.setBackgroundColor(j);
         localSQLiteDatabase.close();

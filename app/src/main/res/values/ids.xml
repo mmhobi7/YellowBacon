@@ -16,4 +16,5 @@
     <item type="id" name="webView1">false</item>
     <item type="id" name="menu_settings1">false</item>
     <item type="id" name="menu_settings2">false</item>
+    <item name="toggleButtonOnOff2" type="id" />
 </resources>

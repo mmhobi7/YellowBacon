@@ -47,15 +47,18 @@ public class FilterService extends Service
         localWindowManager = (WindowManager)getSystemService("window");
         localLayoutParams.height = Common.Height;
         localLayoutParams.y = Common.Area;
-        int a = Common.converToDecimalFromHex(Common.BgColor);
-//        Log.d("f", String.valueOf(i));
-  //      Log.d("sf", Common.BgColor);
-        //gt = new GradientDrawable();
-        //gt.setShape(0);
-        //int colors[] = { 0xff255779 , Integer.parseInt(Common.BgColor), 0xffa6c0cd };
-      //  gt.setColor();
-        //vw.setBackground();
-        vw.setBackgroundColor(a);
+        int i = Common.converToDecimalFromHex(Common.BgColor);
+        String fade = Common.BgColor.replace("#", "#FF");
+        if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
+            int z = Common.hx(fade);
+            int colors[] = {z, i, z};
+            gt = new GradientDrawable();
+            gt.setShape(0);
+            gt.setColors(colors);
+            vw.setBackground(gt);
+        }else {
+            vw.setBackgroundColor(i);
+        }
         vw.getBackground().setAlpha(Common.Alpha);
         localWindowManager.addView(vw, localLayoutParams);
     }
@@ -126,8 +129,18 @@ public class FilterService extends Service
         localLayoutParams.height = (Common.Height);
         localLayoutParams.y = (Common.Area);
         localWindowManager.updateViewLayout(vw, localLayoutParams);
-        int a = Common.converToDecimalFromHex(Common.BgColor);
-        vw.setBackgroundColor(a);
+        int i = Common.converToDecimalFromHex(Common.BgColor);
+        String fade = Common.BgColor.replace("#","#FF");
+        if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
+            int z = Common.hx(fade);
+            int colors[] = {z, i, z};
+            gt = new GradientDrawable();
+            gt.setShape(0);
+            gt.setColors(colors);
+            vw.setBackground(gt);
+        }else {
+            vw.setBackgroundColor(i);
+        }
         vw.getBackground().setAlpha(Common.Alpha);
         localSQLiteDatabase.close();
     }
