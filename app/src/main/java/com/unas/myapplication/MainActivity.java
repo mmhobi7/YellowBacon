@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -79,6 +80,7 @@ public class MainActivity extends Activity
         super.onCreate(paramBundle);
         setContentView(2130903040);
         mThis = this;
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         this.textViewPer = ((TextView) findViewById(2131034122));
         this.toggleButtonOnOff = ((ToggleButton) findViewById(2131034119));
         this.toggleButtonOnOff.setOnClickListener(this);
