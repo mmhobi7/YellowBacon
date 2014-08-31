@@ -80,7 +80,7 @@ public class MainActivity extends Activity
         super.onCreate(paramBundle);
         setContentView(2130903040);
         mThis = this;
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         this.textViewPer = ((TextView) findViewById(2131034122));
         this.toggleButtonOnOff = ((ToggleButton) findViewById(2131034119));
         this.toggleButtonOnOff.setOnClickListener(this);
