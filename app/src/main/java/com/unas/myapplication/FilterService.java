@@ -9,13 +9,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.graphics.Color;
+
 
 import java.net.CookieHandler;
 
@@ -48,11 +52,12 @@ public class FilterService extends Service
         localWindowManager = (WindowManager)getSystemService("window");
         localLayoutParams.height = Common.Height;
         localLayoutParams.y = Common.Area;
+        localLayoutParams.format = (PixelFormat.RGBA_8888);
         int i = Common.converToDecimalFromHex(Common.BgColor);
-        String fade = Common.BgColor.replace("#", "#FF");
+        String fade = Common.BgColor.replace("#", "#00");
         if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
-            int z = Common.hx(fade);
-            int colors[] = {z, i, z};
+            int b = (Color.parseColor(fade));
+            int colors[] = {b, i, b};
             gt = new GradientDrawable();
             gt.setShape(0);
             gt.setColors(colors);
@@ -61,6 +66,7 @@ public class FilterService extends Service
             vw.setBackgroundColor(i);
         }
         vw.getBackground().setAlpha(Common.Alpha);
+        vw.getBackground().setDither(true);
         localWindowManager.addView(vw, localLayoutParams);
     }
 

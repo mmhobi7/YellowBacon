@@ -59,6 +59,7 @@ public class MainActivity extends Activity
                     mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "Y");
                     startService(new Intent(this, FilterService.class));
                     this.rService.addView();
+                    toggleButtonOnOff2.setEnabled(false);
                     return;
                 }
                 //somewhat messy...
@@ -68,6 +69,7 @@ public class MainActivity extends Activity
                     mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
                     this.rService.removeView();
                     stopService(new Intent(this, FilterService.class));
+                    toggleButtonOnOff2.setEnabled(true);
                     return;
                 }
             case 2131034121:
