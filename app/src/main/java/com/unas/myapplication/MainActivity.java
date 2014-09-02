@@ -107,7 +107,6 @@ public class MainActivity extends Activity
                                 }
                             })
                             .show();
-
                 }
             });
         }
@@ -233,7 +232,7 @@ public class MainActivity extends Activity
                 MainActivity.this.rService.setArea(Common.Area);
             }
         });
-
+        MainActivity.this.textViewPer.setText(seekBar1.getProgress() + "%");
     }
 
 
