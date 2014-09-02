@@ -57,10 +57,22 @@ public class FilterService extends Service
         String fade = Common.BgColor.replace("#", "#00");
         if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
             int b = (Color.parseColor(fade));
-            int colors[] = {b, i, b};
             gt = new GradientDrawable();
-            gt.setShape(0);
-            gt.setColors(colors);
+            if (Common.GradientType == 1) {
+                int colors[] = {b, i};
+                gt.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+                gt.setColors(colors);
+            }
+            if (Common.GradientType == 2) {
+                int colors[] = {b, i, b};
+                gt.setColors(colors);
+
+            }
+            if (Common.GradientType == 3) {
+                int colors[] = {b, i};
+                gt.setOrientation(GradientDrawable.Orientation.BOTTOM_TOP);
+                gt.setColors(colors);
+            }
             vw.setBackground(gt);
         }else {
             vw.setBackgroundColor(i);
@@ -137,15 +149,27 @@ public class FilterService extends Service
         localLayoutParams.y = (Common.Area);
         localWindowManager.updateViewLayout(vw, localLayoutParams);
         int i = Common.converToDecimalFromHex(Common.BgColor);
-        String fade = Common.BgColor.replace("#","#FF");
+        String fade = Common.BgColor.replace("#","#00");
         if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
-            int z = Common.hx(fade);
-            int colors[] = {z, i, z};
+            int b = (Color.parseColor(fade));
             gt = new GradientDrawable();
-            gt.setShape(0);
-            gt.setColors(colors);
+            if (Common.GradientType == 1) {
+                int colors[] = {b, i};
+                gt.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+                gt.setColors(colors);
+            }
+            if (Common.GradientType == 2) {
+                int colors[] = {b, i, b};
+                gt.setColors(colors);
+
+            }
+            if (Common.GradientType == 3) {
+                int colors[] = {b, i};
+                gt.setOrientation(GradientDrawable.Orientation.BOTTOM_TOP);
+                gt.setColors(colors);
+            }
             vw.setBackground(gt);
-        }else {
+        } else {
             vw.setBackgroundColor(i);
         }
         vw.getBackground().setAlpha(Common.Alpha);

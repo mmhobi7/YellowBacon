@@ -2,19 +2,24 @@ package com.unas.myapplication;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import java.net.CookieHandler;
 
 
 public class MainActivity extends Activity
@@ -77,6 +82,39 @@ public class MainActivity extends Activity
         startActivity(new Intent(mThis, Color.class));
     }
 
+    public void gradientmenu (View v1) {
+        if (toggleButtonOnOff2.isChecked()) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String[] Lists = {"Top only", "All", "Bottom only"};
+                    AlertDialog builder = new AlertDialog.Builder(mThis)
+                            .setTitle("Where")
+                            .setItems(Lists, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    if (i == 0) {
+                                        Common.GradientType = 1;
+                                    } else {
+                                        if (i == 1) {
+                                            Common.GradientType = 2;
+                                        } else {
+                                            if (i == 2) {
+                                                Common.GradientType = 3;
+                                            }
+                                        }
+                                    }
+                                }
+                            })
+                            .show();
+
+                }
+            });
+        }
+    }
+
+
+
     @SuppressLint({"NewApi"})
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
@@ -87,7 +125,6 @@ public class MainActivity extends Activity
         this.toggleButtonOnOff = ((ToggleButton) findViewById(2131034119));
         this.toggleButtonOnOff.setOnClickListener(this);
         this.toggleButtonOnOff2 = ((ToggleButton) findViewById(R.id.toggleButtonOnOff2));
-        this.toggleButtonOnOff2.setOnClickListener(this);
         this.buttonColor1 = ((Button) findViewById(2131034120));
         this.buttonColor1.setOnClickListener(this);
         this.buttonColor2 = ((Button) findViewById(2131034121));
@@ -106,7 +143,7 @@ public class MainActivity extends Activity
         this.toggleButtonOnOff.setChecked(false);
         if (Common.FilterYN.equals("Y"))
             this.toggleButtonOnOff.setChecked(true);
-        this.toggleButtonOnOff2.setChecked(true);
+        this.toggleButtonOnOff2.setChecked(false);
         int j = Common.converToDecimalFromHex(Common.BgColor);
         this.buttonColor1.setBackgroundColor(j);
         localSQLiteDatabase.close();
@@ -202,6 +239,10 @@ public class MainActivity extends Activity
 
     public void onDestroy() {
         super.onDestroy();
+        toggleButtonOnOff.setEnabled(false);
+        SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
+        mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
+        localSQLiteDatabase.close();
     }
 
     public void onPause() {

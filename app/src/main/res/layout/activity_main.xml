@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@id/relative" android:background="#ffffffff" android:layout_width="fill_parent" android:layout_height="fill_parent"
+<RelativeLayout
+    android:id="@id/relative"
+    android:background="#ffffffff"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="10.0dip" />
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="50.0dip"
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="10.0dip" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50.0dip"
             android:weightSum="1">
-            <View android:layout_width="20.0dip" android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="20.0dip"
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:textAppearance="?android:textAppearanceMedium"
                 android:gravity="fill"
@@ -28,8 +46,9 @@
             android:layout_height="50.0dip"
             android:weightSum="1">
 
-            <View android:layout_width="20.0dip" android:layout_height="wrap_content" />
-
+            <View
+                android:layout_width="20.0dip"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:textAppearance="?android:textAppearanceMedium"
@@ -41,28 +60,68 @@
                 android:layout_height="fill_parent"
                 android:text="@string/s1.2" />
 
-
             <ToggleButton
                 android:id="@+id/toggleButtonOnOff2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ToggleButton"
-                android:checked="false" />
+                android:checked="false"
+                android:onClick="gradientmenu" />
+
         </LinearLayout>
-        <LinearLayout android:layout_width="fill_parent"
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="10.0dip"
             android:id="@+id/custom"
             android:orientation="horizontal" />
-        <LinearLayout android:layout_width="fill_parent" android:layout_height="50.0dip">
-            <View android:layout_width="20.0dip" android:layout_height="wrap_content" />
-            <TextView android:textAppearance="?android:textAppearanceMedium"
-                android:gravity="center" android:layout_gravity="center" android:id="@id/textView2" android:padding="3.0dip" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/s2" />
-            <View android:layout_width="10.0dip" android:layout_height="wrap_content" />
-            <Button android:id="@id/buttonColor1" android:background="#ff000000" android:layout_width="50.0dip" android:layout_height="fill_parent" android:text="" />
-            <View android:layout_width="10.0dip" android:layout_height="wrap_content" />
-            <Button android:id="@+id/buttonColor2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/s5" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50.0dip">
+
+            <View
+                android:layout_width="20.0dip"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textAppearance="?android:textAppearanceMedium"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:id="@id/textView2"
+                android:padding="3.0dip"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/s2" />
+
+            <View
+                android:layout_width="10.0dip"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@id/buttonColor1"
+                android:background="#ff000000"
+                android:layout_width="50.0dip"
+                android:layout_height="fill_parent"
+                android:text="" />
+
+            <View
+                android:layout_width="10.0dip"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/buttonColor2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/s5" />
+
         </LinearLayout>
-        <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="20.0"
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="20.0"
             android:weightSum="1">
 
             <TextView
@@ -138,7 +197,6 @@
                 android:thumb="@drawable/thumb"
                 android:indeterminate="false" />
 
-        </LinearLayout>
-
+        </LinearLayout>;
     </LinearLayout>
 \</RelativeLayout>
