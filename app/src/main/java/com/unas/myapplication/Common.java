@@ -56,24 +56,6 @@ public class Common
         return Color.rgb(cH(s.substring(1, 3)), cH(s.substring(3, 5)), cH(s.substring(5, 7)));
     }
 
-       public static int hx(String args) {
-           // TODO Auto-generated method stub
-           System.out.print("Hexadecimal Input:");
-           // read the hexadecimal input from the console
-           Scanner s = new Scanner(System.in);
-           String inputHex = String.valueOf(s);
-           try {
-               // actual conversion of hex to decimal
-               Integer outputDecimal = Integer.parseInt(inputHex, 16);
-               return outputDecimal;
-           } catch (NumberFormatException ne) {
-               // Printing a warning message if the input is not a valid hex number
-               return 0;
-           } finally {
-               s.close();
-           }
-       }
-
     public static String toStringYN(boolean flag)
     {
         if (flag)
