@@ -14,12 +14,13 @@ public class Common
     public static int Alpha = 50;
     public static int Height = 50;
     public static int Area = 0;
-    public static int GradientType = 0;
+    public static String GradientType = String.valueOf(1);
     public static boolean passedonce;
     public static String BgColor = "#FFFFFF";
     public static int ColorType = -1;
     public static String FgColor = "#000000";
     public static String FilterYN = "N";
+    public static String GradientYN = "N";
     public static int ScrollY = 0;
     public static String pattern[] = {
             ".txt", ".ini", ".csv", ".js", ".css", ".xml", ".config"

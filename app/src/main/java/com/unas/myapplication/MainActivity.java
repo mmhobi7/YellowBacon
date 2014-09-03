@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewManager;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -83,7 +85,11 @@ public class MainActivity extends Activity
     }
 
     public void gradientmenu (View v1) {
+        Log.d("e", Common.GradientType);
         if (toggleButtonOnOff2.isChecked()) {
+            SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
+            mDBHelper.putKeyData(localSQLiteDatabase, "GradientYN", "Y");
+            localSQLiteDatabase.close();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -94,13 +100,21 @@ public class MainActivity extends Activity
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     if (i == 0) {
-                                        Common.GradientType = 1;
+                                        Common.GradientType = String.valueOf(1);
+                                        SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
+                                        MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "GradientType", (Integer.toString(i)));
                                     } else {
                                         if (i == 1) {
-                                            Common.GradientType = 2;
+                                            Common.GradientType = String.valueOf(2);
+                                            SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
+                                            MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "GradientType", (Integer.toString(i)));
+
                                         } else {
                                             if (i == 2) {
-                                                Common.GradientType = 3;
+                                                Common.GradientType = String.valueOf(3);
+                                                SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
+                                                MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "GradientType", (Integer.toString(i)));
+
                                             }
                                         }
                                     }
@@ -109,6 +123,10 @@ public class MainActivity extends Activity
                             .show();
                 }
             });
+        } else {
+            SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
+            mDBHelper.putKeyData(localSQLiteDatabase, "GradientYN", "N");
+            localSQLiteDatabase.close();
         }
     }
 
@@ -131,6 +149,8 @@ public class MainActivity extends Activity
         mDBHelper = new MyDBHelper(this, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
         Common.FilterYN = mDBHelper.getKeyData(localSQLiteDatabase, "FilterYN");
+        Common.GradientYN = mDBHelper.getKeyData(localSQLiteDatabase, "GradientYN");
+        Common.GradientType = mDBHelper.getKeyData(localSQLiteDatabase, "GradientTypes");
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         int a = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
         this.textViewPer.setText(a + "%");
@@ -140,9 +160,15 @@ public class MainActivity extends Activity
         int c = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
         Common.Area = (int) ((((c - 50) * 2) / 100f) * 960 * -1);
         this.toggleButtonOnOff.setChecked(false);
-        if (Common.FilterYN.equals("Y"))
+        if (Common.FilterYN.equals("Y")) {
             this.toggleButtonOnOff.setChecked(true);
-        this.toggleButtonOnOff2.setChecked(false);
+            this.toggleButtonOnOff2.setEnabled(false);
+        }
+        if (Common.GradientYN.equals("Y")) {
+            this.toggleButtonOnOff2.setChecked(true);
+        } else {
+            this.toggleButtonOnOff2.setChecked(false);
+        }
         int j = Common.converToDecimalFromHex(Common.BgColor);
         this.buttonColor1.setBackgroundColor(j);
         localSQLiteDatabase.close();
@@ -170,7 +196,6 @@ public class MainActivity extends Activity
                     int a = paramAnonymousSeekBar.getProgress();
                     MainActivity.this.textViewPer.setText(a + "%");
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
-                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Alpha", (Integer.toString(a)));
                     Common.Alpha = 200 - a * 2;
                     MainActivity.this.rService.setAlpha(Common.Alpha);
                 } catch (IllegalStateException ignored) {
@@ -238,10 +263,6 @@ public class MainActivity extends Activity
 
     public void onDestroy() {
         super.onDestroy();
-        toggleButtonOnOff.setEnabled(false);
-        SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
-        mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
-        localSQLiteDatabase.close();
     }
 
     public void onPause() {

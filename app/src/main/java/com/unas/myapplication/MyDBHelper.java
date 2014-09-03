@@ -33,10 +33,12 @@ public class MyDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase paramSQLiteDatabase) {
         paramSQLiteDatabase.execSQL("CREATE TABLE FilterConfig(_id INTEGER PRIMARY KEY AUTOINCREMENT,  key TEXT, data TEXT  );");
         putKeyData(paramSQLiteDatabase, "FilterYN", "N");
+        putKeyData(paramSQLiteDatabase, "GradientYN", "N");
         putKeyData(paramSQLiteDatabase, "BgColor", "#000000");
         putKeyData(paramSQLiteDatabase, "Alpha", "50");
         putKeyData(paramSQLiteDatabase, "Height", "50");
         putKeyData(paramSQLiteDatabase, "Area", "0");
+        putKeyData(paramSQLiteDatabase, "GradientTypes", "1");
     }
 
     public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2) {

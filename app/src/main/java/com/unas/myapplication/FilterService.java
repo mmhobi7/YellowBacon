@@ -58,17 +58,17 @@ public class FilterService extends Service
         if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
             int b = (Color.parseColor(fade));
             gt = new GradientDrawable();
-            if (Common.GradientType == 1) {
+            if (Common.GradientType.contains("1")) {
                 int colors[] = {b, i};
                 gt.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
                 gt.setColors(colors);
             }
-            if (Common.GradientType == 2) {
+            if (Common.GradientType.contains("2")) {
                 int colors[] = {b, i, b};
                 gt.setColors(colors);
 
             }
-            if (Common.GradientType == 3) {
+            if (Common.GradientType.contains("3")) {
                 int colors[] = {b, i};
                 gt.setOrientation(GradientDrawable.Orientation.BOTTOM_TOP);
                 gt.setColors(colors);
@@ -107,8 +107,9 @@ public class FilterService extends Service
 
     public void removeView()
     {
-        if (vw != null)
-            ((WindowManager)getSystemService("window")).removeView(vw);
+        if (vw != null) {
+            ((WindowManager) getSystemService("window")).removeView(vw);
+        }
         vw = null;
     }
 
@@ -153,17 +154,17 @@ public class FilterService extends Service
         if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
             int b = (Color.parseColor(fade));
             gt = new GradientDrawable();
-            if (Common.GradientType == 1) {
+            if (Common.GradientType.contains("1")) {
                 int colors[] = {b, i};
                 gt.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
                 gt.setColors(colors);
             }
-            if (Common.GradientType == 2) {
+            if (Common.GradientType.contains("2")) {
                 int colors[] = {b, i, b};
                 gt.setColors(colors);
 
             }
-            if (Common.GradientType == 3) {
+            if (Common.GradientType.contains("3")) {
                 int colors[] = {b, i};
                 gt.setOrientation(GradientDrawable.Orientation.BOTTOM_TOP);
                 gt.setColors(colors);
@@ -193,7 +194,6 @@ public class FilterService extends Service
         public LocalBinder()
         {
         }
-
         FilterService getService()
         {
             return FilterService.this;
