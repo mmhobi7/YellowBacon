@@ -10,4 +10,9 @@
     <color name="common_signin_btn_light_text_focused">#ff737373</color>
     <color name="common_signin_btn_default_background">#ffdd4b39</color>
     <color name="common_action_bar_splitter">#ffd2d2d2</color>
+    <color name="primary">#673ab7</color>
+    <color name="primary_dark">#512da8</color>
+    <color name="accent">#ffc400</color>
+    <color name="text_primary">#D9FFFFFF</color>
+    <color name="text_secondary">#D9000000</color>
 </resources>
