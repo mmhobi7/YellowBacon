@@ -153,6 +153,7 @@ public class MainActivity extends Activity
         Common.GradientType = mDBHelper.getKeyData(localSQLiteDatabase, "GradientTypes");
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         int a = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
+        Common.passedonce = mDBHelper.getKeyData(localSQLiteDatabase, "passedonce");
         this.textViewPer.setText(a + "%");
         Common.Alpha = 200 - a * 2;
         int b = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
@@ -171,15 +172,19 @@ public class MainActivity extends Activity
         }
         int j = Common.converToDecimalFromHex(Common.BgColor);
         this.buttonColor1.setBackgroundColor(j);
-        localSQLiteDatabase.close();
         this.seekBar1 = ((SeekBar) findViewById(2131034123));
         this.seekBar1.setMax(100);
-        if (Common.passedonce) {
+        Log.d("q", String.valueOf(Common.passedonce));
+        if (Common.passedonce == null){
+            Common.passedonce = "N";
+        }
+        if (Common.passedonce.equals("Y")) {
             this.seekBar1.setProgress(a);
         } else {
             this.seekBar1.setProgress(50);
-            Common.passedonce = true;
+            MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "passedonce", ("Y"));
         }
+        localSQLiteDatabase.close();
         this.seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 MainActivity.this.textViewPer.setText(paramAnonymousInt + "%");
@@ -197,6 +202,7 @@ public class MainActivity extends Activity
                     MainActivity.this.textViewPer.setText(a + "%");
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
                     Common.Alpha = 200 - a * 2;
+                    MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Alpha", (Integer.toString(a)));
                     MainActivity.this.rService.setAlpha(Common.Alpha);
                 } catch (IllegalStateException ignored) {
                 }
@@ -205,11 +211,13 @@ public class MainActivity extends Activity
 
         this.seekBar2 = ((SeekBar) findViewById(R.id.seekBar2));
         this.seekBar2.setMax(100);
-        if (Common.passedonce) {
+        Log.d("r", String.valueOf(Common.passedonce));
+        if (Common.passedonce.equals("Y")) {
             this.seekBar2.setProgress(b);
         } else {
             this.seekBar2.setProgress(50);
-            Common.passedonce = true;
+            localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
+            MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "passedonce", ("Y"));
         }
         this.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
@@ -234,11 +242,12 @@ public class MainActivity extends Activity
 
         this.seekBar3 = ((SeekBar) findViewById(R.id.seekBar3));
         this.seekBar3.setMax(100);
-        if (Common.passedonce) {
+        if (Common.passedonce.equals("Y")) {
             this.seekBar3.setProgress(c);
         } else {
             this.seekBar3.setProgress(50);
-            Common.passedonce = true;
+            localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
+            MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "passedonce", ("Y"));
         }
         this.seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {

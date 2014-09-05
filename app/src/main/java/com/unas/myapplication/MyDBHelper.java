@@ -39,6 +39,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
         putKeyData(paramSQLiteDatabase, "Height", "50");
         putKeyData(paramSQLiteDatabase, "Area", "0");
         putKeyData(paramSQLiteDatabase, "GradientTypes", "1");
+        putKeyData(paramSQLiteDatabase, "passedonce", "N");
     }
 
     public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2) {
