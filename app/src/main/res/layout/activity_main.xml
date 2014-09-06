@@ -197,6 +197,14 @@
                 android:thumb="@drawable/thumb"
                 android:indeterminate="false" />
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start on Boot"
+                android:id="@+id/checkBox"
+                android:layout_gravity="center_horizontal"
+                android:checked="false" />
+
         </LinearLayout>;
     </LinearLayout>
 \</RelativeLayout>

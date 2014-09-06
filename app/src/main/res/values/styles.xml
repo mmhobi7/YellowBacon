@@ -8,7 +8,5 @@
         <item name="android:background">@android:color/white</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowSoftInputMode">adjustPan</item>
-        <item name="android:textColorPrimary">@color/text_primary</item>
-        <item name="android:textColor">@color/text_secondary</item>
     </style>
 </resources>

@@ -134,8 +134,12 @@ public class MainActivity extends Activity
 
     @SuppressLint({"NewApi"})
     public void onCreate(Bundle paramBundle) {
+
         super.onCreate(paramBundle);
         setContentView(2130903040);
+        if (Common.boot) {
+            moveTaskToBack(true);
+        }
         mThis = this;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         this.textViewPer = ((TextView) findViewById(2131034122));
@@ -267,6 +271,10 @@ public class MainActivity extends Activity
             }
         });
         MainActivity.this.textViewPer.setText(seekBar1.getProgress() + "%");
+        if (Common.boot){
+            toggleButtonOnOff.setChecked(true);
+            Common.boot = false;
+        }
     }
 
 
