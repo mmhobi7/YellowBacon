@@ -79,7 +79,9 @@ public class FilterService extends Service
         }
         vw.getBackground().setAlpha(Common.Alpha);
         vw.getBackground().setDither(true);
+        vw.setRotation(0);
         localWindowManager.addView(vw, localLayoutParams);
+
     }
 
     public void endNotification()

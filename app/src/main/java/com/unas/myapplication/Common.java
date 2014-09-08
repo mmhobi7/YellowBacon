@@ -16,6 +16,7 @@ public class Common
     public static int Area = 0;
     public static String GradientType = String.valueOf(1);
     public static String passedonce;
+    public static String toboot = "N";
     public static boolean boot = false;
     public static String BgColor = "#FFFFFF";
     public static int ColorType = -1;

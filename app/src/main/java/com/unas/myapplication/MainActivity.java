@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -17,8 +18,10 @@ import android.view.View;
 import android.view.ViewManager;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.net.CookieHandler;
@@ -30,6 +33,7 @@ public class MainActivity extends Activity
     public static MainActivity mThis;
     Button buttonColor1;
     Button buttonColor2;
+    Button checkBox;
     private boolean rBound = false;
     private ServiceConnection rConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName paramAnonymousComponentName, IBinder paramAnonymousIBinder) {
@@ -130,6 +134,22 @@ public class MainActivity extends Activity
         }
     }
 
+    public void boot (View v2){
+        if (checkBox.isActivated()){
+            Common.toboot = "Y";
+        } else {
+            Common.toboot = "N";
+        }
+        mDBHelper = new MyDBHelper(this, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
+        SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
+        if (Common.toboot.contains("Y")) {
+            mDBHelper.putKeyData(localSQLiteDatabase, "toboot", "Y");
+        } else {
+            mDBHelper.putKeyData(localSQLiteDatabase, "toboot", "N");
+        }
+        localSQLiteDatabase.close();
+    }
+
 
 
     @SuppressLint({"NewApi"})
@@ -141,7 +161,7 @@ public class MainActivity extends Activity
             moveTaskToBack(true);
         }
         mThis = this;
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         this.textViewPer = ((TextView) findViewById(2131034122));
         this.toggleButtonOnOff = ((ToggleButton) findViewById(2131034119));
         this.toggleButtonOnOff.setOnClickListener(this);
@@ -150,6 +170,7 @@ public class MainActivity extends Activity
         this.buttonColor1.setOnClickListener(this);
         this.buttonColor2 = ((Button) findViewById(2131034121));
         this.buttonColor2.setOnClickListener(this);
+        this.checkBox = ((CheckBox) findViewById(R.id.checkBox));
         mDBHelper = new MyDBHelper(this, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
         Common.FilterYN = mDBHelper.getKeyData(localSQLiteDatabase, "FilterYN");
@@ -158,8 +179,15 @@ public class MainActivity extends Activity
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         int a = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
         Common.passedonce = mDBHelper.getKeyData(localSQLiteDatabase, "passedonce");
+        Common.toboot = (mDBHelper.getKeyData(localSQLiteDatabase, "toboot"));
+        if (Common.toboot.contains("Y")){
+            checkBox.setActivated(true);
+        } else {
+            checkBox.setActivated(false);
+        }
         this.textViewPer.setText(a + "%");
         Common.Alpha = 200 - a * 2;
+        this.checkBox.setActivated(true);
         int b = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
         Common.Height = (int) ((b / 100f) * 1920f);
         int c = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
@@ -274,6 +302,20 @@ public class MainActivity extends Activity
         if (Common.boot){
             toggleButtonOnOff.setChecked(true);
             Common.boot = false;
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d("1t", "p");
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
+            Log.d("t", "p1");
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
+            Log.d("t", "p2");
         }
     }
 

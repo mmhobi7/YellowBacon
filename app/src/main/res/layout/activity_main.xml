@@ -72,12 +72,6 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="10.0dip"
-            android:id="@+id/custom"
-            android:orientation="horizontal" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
             android:layout_height="50.0dip">
 
             <View
@@ -203,7 +197,8 @@
                 android:text="Start on Boot"
                 android:id="@+id/checkBox"
                 android:layout_gravity="center_horizontal"
-                android:checked="false" />
+                android:checked="false"
+                android:onClick="boot" />
 
         </LinearLayout>;
     </LinearLayout>
