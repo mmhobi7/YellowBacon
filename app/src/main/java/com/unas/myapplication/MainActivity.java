@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewManager;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,8 +23,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import java.net.CookieHandler;
 
 
 public class MainActivity extends Activity
@@ -76,15 +72,13 @@ public class MainActivity extends Activity
                     return;
                 }
                 //somewhat messy...
-                if (!(this.toggleButtonOnOff.isChecked())) {
-                    ((NotificationManager) getSystemService("notification")).cancelAll();
-                    this.rService.endNotification();
-                    mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
-                    this.rService.removeView();
-                    stopService(new Intent(this, FilterService.class));
-                    toggleButtonOnOff2.setEnabled(true);
-                    return;
-                }
+                ((NotificationManager) getSystemService("notification")).cancelAll();
+                this.rService.endNotification();
+                mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
+                this.rService.removeView();
+                stopService(new Intent(this, FilterService.class));
+                toggleButtonOnOff2.setEnabled(true);
+                return;
             case 2131034121:
         }
         startActivity(new Intent(mThis, Color.class));
@@ -100,7 +94,7 @@ public class MainActivity extends Activity
                 @Override
                 public void run() {
                     String[] Lists = {"Top only", "All", "Bottom only"};
-                    AlertDialog builder = new AlertDialog.Builder(mThis)
+                    new AlertDialog.Builder(mThis)
                             .setTitle("Where")
                             .setItems(Lists, new DialogInterface.OnClickListener() {
                                 @Override

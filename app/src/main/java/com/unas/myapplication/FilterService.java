@@ -7,22 +7,15 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.graphics.Color;
-
-
-import java.net.CookieHandler;
 
 
 /**
@@ -129,16 +122,14 @@ public class FilterService extends Service
 
     public void setHeight(int paramInt)
     {
-        if (vw == null) {
-        } else {
+        if (!(vw == null)) {
             localLayoutParams.height = (paramInt);
             localWindowManager.updateViewLayout(vw, localLayoutParams);
         }
     }
 
     public void setArea (int paramInt){
-        if (vw == null) {
-        } else {
+        if (!(vw == null)) {
             localLayoutParams.y = (paramInt);
             localWindowManager.updateViewLayout(vw, localLayoutParams);
         }
