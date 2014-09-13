@@ -3,6 +3,7 @@ package com.unas.myapplication;
 /**
  * Created by aaahh on 8/26/14. edited some
  */
+
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,14 +18,9 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 public class Color extends Activity {
-    static MyDBHelper mDBHelper;
     public static Color mThis;
     public static WebView webView;
-    final Handler setCancel = new Handler() {
-        public void handleMessage(Message paramAnonymousMessage) {
-            Color.this.finish();
-        }
-    };
+    static MyDBHelper mDBHelper;
     final Handler setColor = new Handler() {
         public void handleMessage(Message paramAnonymousMessage) {
             Color.mDBHelper = new MyDBHelper(Color.mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
@@ -36,6 +32,11 @@ public class Color extends Activity {
             MainActivity.mThis.buttonColor1.setBackgroundColor(i);
             if (Common.FilterYN.equals("Y"))
                 MainActivity.mThis.rService.setConfig();
+            Color.this.finish();
+        }
+    };
+    final Handler setCancel = new Handler() {
+        public void handleMessage(Message paramAnonymousMessage) {
             Color.this.finish();
         }
     };
@@ -67,11 +68,17 @@ public class Color extends Activity {
         getWindow().setFlags(4, 4);
     }
 
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     public class JavaScriptInterface {
         Context mContext;
+
         JavaScriptInterface(Context c) {
             mContext = c;
         }
+
         //Both of these are used...
         @JavascriptInterface
         public void setCancel() {
@@ -86,11 +93,6 @@ public class Color extends Activity {
             Color.this.setColor.sendMessage(localMessage);
         }
     }
-
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
 
     class HelloWebViewClient extends WebViewClient {
 

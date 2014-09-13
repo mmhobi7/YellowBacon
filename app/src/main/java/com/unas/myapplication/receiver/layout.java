@@ -3,12 +3,9 @@ package com.unas.myapplication.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.util.Log;
-import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 /**
  * Created by aaahh on 9/7/14.
@@ -26,7 +23,8 @@ public class layout extends BroadcastReceiver {
             Log.d("t", "portrait");
         }
     }
-    public String getRotation(Context context){
+
+    public String getRotation(Context context) {
         final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
         switch (rotation) {
             case Surface.ROTATION_0:

@@ -27,11 +27,12 @@ import android.widget.ToggleButton;
 
 public class MainActivity extends Activity
         implements View.OnClickListener {
-    static MyDBHelper mDBHelper;
     public static MainActivity mThis;
+    static MyDBHelper mDBHelper;
     Button buttonColor1;
     Button buttonColor2;
     Button checkBox;
+    FilterService rService;
     private ServiceConnection rConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName paramAnonymousComponentName, IBinder paramAnonymousIBinder) {
             FilterService.LocalBinder localLocalBinder = (FilterService.LocalBinder) paramAnonymousIBinder;
@@ -45,7 +46,6 @@ public class MainActivity extends Activity
         public void onServiceDisconnected(ComponentName paramAnonymousComponentName) {
         }
     };
-    FilterService rService;
     SeekBar seekBar1;
     TextView textViewPer;
     ToggleButton toggleButtonOnOff;
@@ -81,7 +81,7 @@ public class MainActivity extends Activity
         startActivity(new Intent(mThis, Color.class));
     }
 
-    public void gradientmenu (View v1) {
+    public void gradientmenu(View v1) {
         Log.d("e", Common.GradientType);
         if (toggleButtonOnOff2.isChecked()) {
             SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
@@ -127,8 +127,8 @@ public class MainActivity extends Activity
         }
     }
 
-    public void boot (View v2){
-        if (checkBox.isActivated()){
+    public void boot(View v2) {
+        if (checkBox.isActivated()) {
             Common.toboot = "Y";
         } else {
             Common.toboot = "N";
@@ -142,7 +142,6 @@ public class MainActivity extends Activity
         }
         localSQLiteDatabase.close();
     }
-
 
 
     @SuppressLint({"NewApi"})
@@ -173,7 +172,7 @@ public class MainActivity extends Activity
         int a = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
         Common.passedonce = mDBHelper.getKeyData(localSQLiteDatabase, "passedonce");
         Common.toboot = (mDBHelper.getKeyData(localSQLiteDatabase, "toboot"));
-        if (Common.toboot.contains("Y")){
+        if (Common.toboot.contains("Y")) {
             checkBox.setActivated(true);
         } else {
             checkBox.setActivated(false);
@@ -200,7 +199,7 @@ public class MainActivity extends Activity
         this.seekBar1 = ((SeekBar) findViewById(2131034123));
         this.seekBar1.setMax(100);
         Log.d("q", String.valueOf(Common.passedonce));
-        if (Common.passedonce == null){
+        if (Common.passedonce == null) {
             Common.passedonce = "N";
         }
         if (Common.passedonce.equals("Y")) {
@@ -247,7 +246,7 @@ public class MainActivity extends Activity
         this.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 DisplayMetrics displaymetrics = new DisplayMetrics();
-                ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
+                ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
                 float screenHeight = displaymetrics.heightPixels;
                 Common.Height = (int) ((paramAnonymousInt / 100f) * screenHeight);
                 MainActivity.this.rService.setHeight(Common.Height);
@@ -262,7 +261,7 @@ public class MainActivity extends Activity
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
                     MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Height", (Integer.toString(b)));
                     DisplayMetrics displaymetrics = new DisplayMetrics();
-                    ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
+                    ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
                     float screenHeight = displaymetrics.heightPixels;
                     Common.Height = (int) ((b / 100f) * screenHeight);
                     MainActivity.this.rService.setHeight(Common.Height);
@@ -294,14 +293,14 @@ public class MainActivity extends Activity
                 SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
                 MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(c)));
                 DisplayMetrics displaymetrics = new DisplayMetrics();
-                ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
+                ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
                 int screenHeight = displaymetrics.heightPixels;
-                Common.Area = (int) ((((c - 50) * 2) / 100f) * (screenHeight/2) * -1);
+                Common.Area = (int) ((((c - 50) * 2) / 100f) * (screenHeight / 2) * -1);
                 MainActivity.this.rService.setArea(Common.Area);
             }
         });
         MainActivity.this.textViewPer.setText(seekBar1.getProgress() + "%");
-        if (Common.boot){
+        if (Common.boot) {
             toggleButtonOnOff.setChecked(true);
             Common.boot = false;
         }
@@ -315,7 +314,7 @@ public class MainActivity extends Activity
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
             Log.d("t", "p1");
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
             Log.d("t", "p2");
         }

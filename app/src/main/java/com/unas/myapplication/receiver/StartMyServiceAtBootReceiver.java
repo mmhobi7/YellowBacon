@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.unas.myapplication.Common;
-import com.unas.myapplication.FilterService;
 import com.unas.myapplication.MainActivity;
 import com.unas.myapplication.MyDBHelper;
 
@@ -14,8 +13,9 @@ import com.unas.myapplication.MyDBHelper;
  * Created by aaahh on 9/5/14.
  */
 public class StartMyServiceAtBootReceiver extends BroadcastReceiver {
-    static MyDBHelper mDBHelper;
     public static MainActivity mThis;
+    static MyDBHelper mDBHelper;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         mDBHelper = new MyDBHelper(mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
