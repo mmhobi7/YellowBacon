@@ -186,7 +186,7 @@ public class MainActivity extends Activity
         float screenHeight = displaymetrics.heightPixels;
         Common.Height = (int) ((b / 100f) * screenHeight);
         int c = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
-        Common.Area = (int) ((((c - 50) * 2) / 100f) * (screenHeight/2) * -1);
+        Common.Area = (int) ((((c - 50) * 2) / 100f) * (screenHeight / 2) * -1);
         this.toggleButtonOnOff.setChecked(false);
         if (Common.FilterYN.equals("Y")) {
             this.toggleButtonOnOff.setChecked(true);
@@ -287,7 +287,7 @@ public class MainActivity extends Activity
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
                 float screenHeight = displaymetrics.heightPixels;
-                Common.Area = (int) ((((paramAnonymousInt - 50) * 2) / 100f) * (screenHeight/2) * -1);
+                Common.Area = (int) ((((paramAnonymousInt - 50) * 2) / 100f) * (screenHeight / 2) * -1);
                 MainActivity.this.rService.setArea(Common.Area);
             }
 
