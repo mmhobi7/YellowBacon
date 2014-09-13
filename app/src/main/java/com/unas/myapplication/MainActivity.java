@@ -13,6 +13,7 @@ import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewManager;
@@ -253,7 +254,10 @@ public class MainActivity extends Activity
         }
         this.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
-                Common.Height = (int) ((paramAnonymousInt / 100f) * 1920f);
+                DisplayMetrics displaymetrics = new DisplayMetrics();
+                ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+                float screenHeight = displaymetrics.heightPixels;
+                Common.Height = (int) ((paramAnonymousInt / 100f) * screenHeight);
                 MainActivity.this.rService.setHeight(Common.Height);
             }
 
@@ -265,7 +269,10 @@ public class MainActivity extends Activity
                     int b = paramAnonymousSeekBar.getProgress();
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
                     MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Height", (Integer.toString(b)));
-                    Common.Height = (int) ((b / 100f) * 1920f);
+                    DisplayMetrics displaymetrics = new DisplayMetrics();
+                    ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+                    float screenHeight = displaymetrics.heightPixels;
+                    Common.Height = (int) ((b / 100f) * screenHeight);
                     MainActivity.this.rService.setHeight(Common.Height);
                 } catch (IllegalStateException ignored) {
                 }
@@ -294,7 +301,10 @@ public class MainActivity extends Activity
                 int c = paramAnonymousSeekBar.getProgress();
                 SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
                 MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(c)));
-                Common.Area = (int) ((((c - 50) * 2) / 100f) * 960 * -1);
+                DisplayMetrics displaymetrics = new DisplayMetrics();
+                ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+                int screenHeight = displaymetrics.heightPixels;
+                Common.Area = (int) ((((c - 50) * 2) / 100f) * (screenHeight/2) * -1);
                 MainActivity.this.rService.setArea(Common.Area);
             }
         });
