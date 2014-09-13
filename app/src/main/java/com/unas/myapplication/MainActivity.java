@@ -181,9 +181,12 @@ public class MainActivity extends Activity
         Common.Alpha = 200 - a * 2;
         this.checkBox.setActivated(true);
         int b = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
-        Common.Height = (int) ((b / 100f) * 1920f);
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
+        float screenHeight = displaymetrics.heightPixels;
+        Common.Height = (int) ((b / 100f) * screenHeight);
         int c = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"));
-        Common.Area = (int) ((((c - 50) * 2) / 100f) * 960 * -1);
+        Common.Area = (int) ((((c - 50) * 2) / 100f) * (screenHeight/2) * -1);
         this.toggleButtonOnOff.setChecked(false);
         if (Common.FilterYN.equals("Y")) {
             this.toggleButtonOnOff.setChecked(true);
@@ -281,7 +284,10 @@ public class MainActivity extends Activity
         }
         this.seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
-                Common.Area = (int) ((((paramAnonymousInt - 50) * 2) / 100f) * 960 * -1);
+                DisplayMetrics displaymetrics = new DisplayMetrics();
+                ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
+                float screenHeight = displaymetrics.heightPixels;
+                Common.Area = (int) ((((paramAnonymousInt - 50) * 2) / 100f) * (screenHeight/2) * -1);
                 MainActivity.this.rService.setArea(Common.Area);
             }
 
@@ -294,7 +300,7 @@ public class MainActivity extends Activity
                 MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(c)));
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
-                int screenHeight = displaymetrics.heightPixels;
+                float screenHeight = displaymetrics.heightPixels;
                 Common.Area = (int) ((((c - 50) * 2) / 100f) * (screenHeight / 2) * -1);
                 MainActivity.this.rService.setArea(Common.Area);
             }

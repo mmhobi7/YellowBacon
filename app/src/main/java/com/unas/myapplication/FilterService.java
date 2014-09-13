@@ -40,7 +40,7 @@ public class FilterService extends Service {
         int screenWidth = displaymetrics.widthPixels;
         float screenHeight = displaymetrics.heightPixels;
         Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
-        Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenWidth / 2) * -1);
+        Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenHeight / 2) * -1);
         localSQLiteDatabase.close();
         vw = new View(this);
         localLayoutParams = new WindowManager.LayoutParams(screenWidth, (int) screenHeight, 2006, 1288, -3);
@@ -133,9 +133,8 @@ public class FilterService extends Service {
         Common.Alpha = 200 - 2 * Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
-        float screenWidth = displaymetrics.widthPixels;
-        int screenHeight = displaymetrics.heightPixels;
-        Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenWidth);
+        float screenHeight = displaymetrics.heightPixels;
+        Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
         Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenHeight / 2) * -1);
         localLayoutParams.height = (Common.Height);
         localLayoutParams.y = (Common.Area);
