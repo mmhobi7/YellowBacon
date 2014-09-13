@@ -13,6 +13,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -47,8 +48,11 @@ public class FilterService extends Service
         Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area")))- 50) * 2) / 100f)) * 960 * -1);
         localSQLiteDatabase.close();
         vw = new View(this);
-        Display localDisplay = ((WindowManager)getSystemService("window")).getDefaultDisplay();
-        localLayoutParams = new WindowManager.LayoutParams( 1080, 1920, 2006, 1288, -3);
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+        int screenWidth = displaymetrics.widthPixels;
+        int screenHeight = displaymetrics.heightPixels;
+        localLayoutParams = new WindowManager.LayoutParams( screenWidth, screenHeight, 2006, 1288, -3);
         localWindowManager = (WindowManager)getSystemService("window");
         localLayoutParams.height = Common.Height;
         localLayoutParams.y = Common.Area;
@@ -184,11 +188,23 @@ public class FilterService extends Service
         Intent localIntent = new Intent(getApplicationContext(), MainActivity.class);
         localIntent.addFlags(872415232);
         PendingIntent localPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, localIntent, 0);
-        NotificationManager n = ((NotificationManager)getSystemService("notification"));
-        Notification localNotification = new Notification(2130837531, "Screen Filter", System.currentTimeMillis());
-        localNotification.setLatestEventInfo(this, getResources().getString(2131099674), "Screen Filter", localPendingIntent);
-        n.notify(1, localNotification);
-        startForeground(1, localNotification);
+        //NotificationManager n = ((NotificationManager)getSystemService("notification"));
+        //Notification localNotification = new Notification(2130837531, "Screen Filter", System.currentTimeMillis());
+        //localNotification.setLatestEventInfo(this, getResources().getString(2131099674), "Screen Filter", localPendingIntent);
+        //startForeground(1, localNotification);
+
+        Notification noti = new Notification.Builder(this)
+                .setContentTitle("Screen Filter")
+                .setContentText("Activated")
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentIntent(localPendingIntent)
+                .build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                NOTIFICATION_SERVICE);
+        noti.defaults |= Notification.DEFAULT_ALL;
+        noti.flags |= Notification.FLAG_FOREGROUND_SERVICE;
+        notificationManager.notify(1, noti);
+
     }
 
     public class LocalBinder extends Binder
