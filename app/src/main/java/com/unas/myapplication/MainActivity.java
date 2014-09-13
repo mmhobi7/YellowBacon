@@ -32,12 +32,10 @@ public class MainActivity extends Activity
     Button buttonColor1;
     Button buttonColor2;
     Button checkBox;
-    private boolean rBound = false;
     private ServiceConnection rConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName paramAnonymousComponentName, IBinder paramAnonymousIBinder) {
             FilterService.LocalBinder localLocalBinder = (FilterService.LocalBinder) paramAnonymousIBinder;
             MainActivity.this.rService = localLocalBinder.getService();
-            MainActivity.this.rBound = true;
             if ((Common.FilterYN.equals("Y")) && (FilterService.vw == null)) {
                 MainActivity.this.startService(new Intent(MainActivity.mThis, FilterService.class));
                 MainActivity.this.rService.addView();
@@ -45,7 +43,6 @@ public class MainActivity extends Activity
         }
 
         public void onServiceDisconnected(ComponentName paramAnonymousComponentName) {
-            MainActivity.this.rBound = false;
         }
     };
     FilterService rService;

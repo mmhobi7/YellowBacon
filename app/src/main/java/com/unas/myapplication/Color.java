@@ -9,14 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.Window;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.Toast;
 
 public class Color extends Activity {
@@ -62,7 +59,6 @@ public class Color extends Activity {
         webView.getSettings().setBuiltInZoomControls(false);
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setPluginState(WebSettings.PluginState.ON);
-        webView.getSettings().setLightTouchEnabled(false);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
         webView.setBackgroundColor(0);

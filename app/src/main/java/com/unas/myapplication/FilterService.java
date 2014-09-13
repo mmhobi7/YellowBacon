@@ -19,7 +19,7 @@ import android.view.WindowManager;
 
 
 /**
- * Created by aaahh on 8/26/14. .
+ * Created by aaahh on 8/26/14. Edited 9/13/14
  */
 public class FilterService extends Service
 {
