@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -255,7 +256,7 @@ public class MainActivity extends Activity
         this.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 DisplayMetrics displaymetrics = new DisplayMetrics();
-                ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+                ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
                 float screenHeight = displaymetrics.heightPixels;
                 Common.Height = (int) ((paramAnonymousInt / 100f) * screenHeight);
                 MainActivity.this.rService.setHeight(Common.Height);
@@ -270,7 +271,7 @@ public class MainActivity extends Activity
                     SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
                     MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Height", (Integer.toString(b)));
                     DisplayMetrics displaymetrics = new DisplayMetrics();
-                    ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+                    ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
                     float screenHeight = displaymetrics.heightPixels;
                     Common.Height = (int) ((b / 100f) * screenHeight);
                     MainActivity.this.rService.setHeight(Common.Height);
@@ -302,7 +303,7 @@ public class MainActivity extends Activity
                 SQLiteDatabase localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
                 MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "Area", (Integer.toString(c)));
                 DisplayMetrics displaymetrics = new DisplayMetrics();
-                ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+                ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
                 int screenHeight = displaymetrics.heightPixels;
                 Common.Area = (int) ((((c - 50) * 2) / 100f) * (screenHeight/2) * -1);
                 MainActivity.this.rService.setArea(Common.Area);

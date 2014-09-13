@@ -45,7 +45,7 @@ public class FilterService extends Service
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         Common.Alpha = 200 - 2 * Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+        ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
         int screenWidth = displaymetrics.widthPixels;
         float screenHeight = displaymetrics.heightPixels;
         Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height")))/100f)*screenHeight);
@@ -53,7 +53,7 @@ public class FilterService extends Service
         localSQLiteDatabase.close();
         vw = new View(this);
         localLayoutParams = new WindowManager.LayoutParams( screenWidth, (int) screenHeight, 2006, 1288, -3);
-        localWindowManager = (WindowManager)getSystemService("window");
+        localWindowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
         localLayoutParams.height = Common.Height;
         localLayoutParams.y = Common.Area;
         localLayoutParams.format = (PixelFormat.RGBA_8888);
@@ -114,7 +114,7 @@ public class FilterService extends Service
     public void removeView()
     {
         if (vw != null) {
-            ((WindowManager) getSystemService("window")).removeView(vw);
+            ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).removeView(vw);
         }
         vw = null;
     }
@@ -151,7 +151,7 @@ public class FilterService extends Service
         Common.BgColor = mDBHelper.getKeyData(localSQLiteDatabase, "BgColor");
         Common.Alpha = 200 - 2 * Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Alpha"));
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((WindowManager)getSystemService("window")).getDefaultDisplay().getMetrics(displaymetrics);
+        ((WindowManager)getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
         float screenWidth = displaymetrics.widthPixels;
         int screenHeight = displaymetrics.heightPixels;
         Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height")))/100f)*screenWidth);
