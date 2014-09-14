@@ -14,6 +14,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -134,10 +135,29 @@ public class FilterService extends Service {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
         float screenHeight = displaymetrics.heightPixels;
-        Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
-        Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenHeight / 2) * -1);
-        localLayoutParams.height = (Common.Height);
-        localLayoutParams.y = (Common.Area);
+        float screenWidth = displaymetrics.widthPixels;
+        Log.d("1", String.valueOf(screenHeight));
+        if (Common.O == 1) {
+            Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
+            Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenHeight / 2) * -1);
+            localLayoutParams.width = (int) screenWidth;
+            localLayoutParams.height = (Common.Height);
+            localLayoutParams.x = 0;
+            localLayoutParams.y = (Common.Area);
+            Log.d("q", "aaa");
+        }
+        if (Common.O == 2){
+            Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenWidth);
+            Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenWidth / 2) * -1);
+            localLayoutParams.height = (int) screenWidth;
+            localLayoutParams.width = (Common.Height);
+            localLayoutParams.x = (Common.Area);
+            localLayoutParams.y = 0;
+            Log.d("q", "aaaw");
+            Log.d("3", String.valueOf(screenHeight));
+            Log.d("4", String.valueOf(screenWidth));
+            Log.d("5", String.valueOf(Common.Area));
+        }
         localWindowManager.updateViewLayout(vw, localLayoutParams);
         int i = Common.converToDecimalFromHex(Common.BgColor);
         String fade = Common.BgColor.replace("#", "#00");

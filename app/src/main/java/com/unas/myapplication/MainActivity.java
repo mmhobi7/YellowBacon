@@ -200,7 +200,7 @@ public class MainActivity extends Activity
             this.toggleButtonOnOff.setChecked(true);
             this.toggleButtonOnOff2.setEnabled(false);
             IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
-            unregisterReceiver(myReceiver);
+            registerReceiver(myReceiver, filter1);
         }
         if (Common.GradientYN.equals("Y")) {
             this.toggleButtonOnOff2.setChecked(true);
@@ -327,10 +327,9 @@ public class MainActivity extends Activity
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equalsIgnoreCase("android.intent.action.CONFIGURATION_CHANGED"))
             {
-                int orien = getResources().getConfiguration().orientation;
-                if (orien == 1){
-
-                }
+                Common.O = getResources().getConfiguration().orientation;
+                FilterService.mThis.setConfig();
+                Log.d("q", "aasa");
             }
         }
     };
