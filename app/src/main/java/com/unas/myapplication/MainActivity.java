@@ -11,11 +11,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -66,6 +69,8 @@ public class MainActivity extends Activity
                     startService(new Intent(this, FilterService.class));
                     this.rService.addView();
                     toggleButtonOnOff2.setEnabled(false);
+                    IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
+                    registerReceiver(myReceiver, filter1);
                     return;
                 }
                 //somewhat messy...
@@ -75,7 +80,9 @@ public class MainActivity extends Activity
                 this.rService.removeView();
                 stopService(new Intent(this, FilterService.class));
                 toggleButtonOnOff2.setEnabled(true);
+                if (!(myReceiver == null)) {
                 unregisterReceiver(myReceiver);
+        }
                 return;
             case 2131034121:
         }
@@ -154,9 +161,7 @@ public class MainActivity extends Activity
             moveTaskToBack(true);
         }
         mThis = this;
-        IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
-        registerReceiver(myReceiver, filter1);
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         this.textViewPer = ((TextView) findViewById(2131034122));
         this.toggleButtonOnOff = ((ToggleButton) findViewById(2131034119));
         this.toggleButtonOnOff.setOnClickListener(this);
@@ -194,6 +199,8 @@ public class MainActivity extends Activity
         if (Common.FilterYN.equals("Y")) {
             this.toggleButtonOnOff.setChecked(true);
             this.toggleButtonOnOff2.setEnabled(false);
+            IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
+            unregisterReceiver(myReceiver);
         }
         if (Common.GradientYN.equals("Y")) {
             this.toggleButtonOnOff2.setChecked(true);
@@ -320,7 +327,10 @@ public class MainActivity extends Activity
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equalsIgnoreCase("android.intent.action.CONFIGURATION_CHANGED"))
             {
-                Log.d("a","Bluetooth connect");
+                int orien = getResources().getConfiguration().orientation;
+                if (orien == 1){
+
+                }
             }
         }
     };

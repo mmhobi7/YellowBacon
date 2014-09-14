@@ -171,23 +171,12 @@ public class FilterService extends Service {
         Intent localIntent = new Intent(getApplicationContext(), MainActivity.class);
         localIntent.addFlags(872415232);
         PendingIntent localPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, localIntent, 0);
-        //NotificationManager n = ((NotificationManager)getSystemService("notification"));
-        //Notification localNotification = new Notification(2130837531, "Screen Filter", System.currentTimeMillis());
-        //localNotification.setLatestEventInfo(this, getResources().getString(2131099674), "Screen Filter", localPendingIntent);
-        //startForeground(1, localNotification);
-
-        Notification noti = new Notification.Builder(this)
-                .setContentTitle("Screen Filter")
-                .setContentText("Activated")
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setContentIntent(localPendingIntent)
-                .build();
-        NotificationManager notificationManager = (NotificationManager) getSystemService(
-                NOTIFICATION_SERVICE);
-        noti.defaults |= Notification.DEFAULT_ALL;
-        noti.flags |= Notification.FLAG_FOREGROUND_SERVICE;
-        notificationManager.notify(1, noti);
-
+        NotificationManager n = ((NotificationManager)getSystemService("notification"));
+        Notification localNotification = new Notification(R.drawable.ic_launcher, "Screen Filter", System.currentTimeMillis());
+        localNotification.setLatestEventInfo(this, "Screen Filter", "Activated", localPendingIntent);
+        n.notify(1, localNotification);
+        startForeground(1, localNotification);
+       // localNotification.flags |= Notification.FLAG_FOREGROUND_SERVICE;
     }
 
     public class LocalBinder extends Binder {
