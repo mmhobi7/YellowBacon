@@ -19,6 +19,7 @@ import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -327,9 +328,8 @@ public class MainActivity extends Activity
         public void onReceive(Context context, Intent intent) {
             if(intent.getAction().equalsIgnoreCase("android.intent.action.CONFIGURATION_CHANGED"))
             {
-                Common.O = getResources().getConfiguration().orientation;
+                Common.O = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
                 FilterService.mThis.setConfig();
-                Log.d("q", "aasa");
             }
         }
     };
