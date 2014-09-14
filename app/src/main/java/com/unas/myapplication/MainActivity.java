@@ -4,12 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -21,7 +22,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
@@ -75,6 +75,7 @@ public class MainActivity extends Activity
                 this.rService.removeView();
                 stopService(new Intent(this, FilterService.class));
                 toggleButtonOnOff2.setEnabled(true);
+                unregisterReceiver(myReceiver);
                 return;
             case 2131034121:
         }
@@ -153,6 +154,8 @@ public class MainActivity extends Activity
             moveTaskToBack(true);
         }
         mThis = this;
+        IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
+        registerReceiver(myReceiver, filter1);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         this.textViewPer = ((TextView) findViewById(2131034122));
         this.toggleButtonOnOff = ((ToggleButton) findViewById(2131034119));
@@ -312,23 +315,19 @@ public class MainActivity extends Activity
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Log.d("1t", "p");
-        // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-            Log.d("t", "p1");
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
-            Log.d("t", "p2");
+    private final BroadcastReceiver myReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getAction().equalsIgnoreCase("android.intent.action.CONFIGURATION_CHANGED"))
+            {
+                Log.d("a","Bluetooth connect");
+            }
         }
-    }
-
+    };
 
     public void onDestroy() {
         super.onDestroy();
+        unregisterReceiver(myReceiver);
     }
 
     public void onPause() {
