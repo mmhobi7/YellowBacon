@@ -202,10 +202,10 @@ public class FilterService extends Service {
         Intent localIntent = new Intent(getApplicationContext(), MainActivity.class);
         localIntent.addFlags(872415232);
         PendingIntent localPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, localIntent, 0);
-        NotificationManager n = ((NotificationManager)getSystemService("notification"));
+        //NotificationManager n = ((NotificationManager)getSystemService("notification"));
         Notification localNotification = new Notification(R.drawable.ic_launcher, "Screen Filter", System.currentTimeMillis());
         localNotification.setLatestEventInfo(this, "Screen Filter", "Activated", localPendingIntent);
-        n.notify(1, localNotification);
+        //n.notify(1, localNotification);
         startForeground(1, localNotification);
        // localNotification.flags |= Notification.FLAG_FOREGROUND_SERVICE;
     }

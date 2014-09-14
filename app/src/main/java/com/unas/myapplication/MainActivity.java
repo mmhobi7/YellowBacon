@@ -337,6 +337,7 @@ public class MainActivity extends Activity
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(myReceiver);
+        unbindService(rConnection);
     }
 
     public void onPause() {
