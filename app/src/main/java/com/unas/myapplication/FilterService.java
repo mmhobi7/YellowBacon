@@ -136,6 +136,8 @@ public class FilterService extends Service {
         ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
         float screenHeight = displaymetrics.heightPixels;
         float screenWidth = displaymetrics.widthPixels;
+        int i = Common.converToDecimalFromHex(Common.BgColor);
+        String fade = Common.BgColor.replace("#", "#00");
         Log.d("1", String.valueOf(Common.O));
         if (Common.O == 0) {
             Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
@@ -144,6 +146,28 @@ public class FilterService extends Service {
             localLayoutParams.height = (Common.Height);
             localLayoutParams.x = 0;
             localLayoutParams.y = (Common.Area);
+            if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
+                int b = (Color.parseColor(fade));
+                gt = new GradientDrawable();
+                if (Common.GradientType.contains("1")) {
+                    int colors[] = {b, i};
+                    gt.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+                    gt.setColors(colors);
+                }
+                if (Common.GradientType.contains("2")) {
+                    int colors[] = {b, i, b};
+                    gt.setColors(colors);
+
+                }
+                if (Common.GradientType.contains("3")) {
+                    int colors[] = {b, i};
+                    gt.setOrientation(GradientDrawable.Orientation.BOTTOM_TOP);
+                    gt.setColors(colors);
+                }
+                vw.setBackground(gt);
+            } else {
+                vw.setBackgroundColor(i);
+            }
         }
         if (Common.O == 1){
             Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenWidth);
@@ -152,6 +176,29 @@ public class FilterService extends Service {
             localLayoutParams.width = (Common.Height);
             localLayoutParams.x = (Common.Area);
             localLayoutParams.y = 0;
+
+            if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
+                int b = (Color.parseColor(fade));
+                gt = new GradientDrawable();
+                if (Common.GradientType.contains("1")) {
+                    int colors[] = {b, i};
+                    gt.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                    gt.setColors(colors);
+                }
+                if (Common.GradientType.contains("2")) {
+                    int colors[] = {b, i, b};
+                    gt.setColors(colors);
+
+                }
+                if (Common.GradientType.contains("3")) {
+                    int colors[] = {b, i};
+                    gt.setOrientation(GradientDrawable.Orientation.RIGHT_LEFT);
+                    gt.setColors(colors);
+                }
+                vw.setBackground(gt);
+            } else {
+                vw.setBackgroundColor(i);
+            }
         }
         if (Common.O == 2) {
             Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
@@ -160,6 +207,29 @@ public class FilterService extends Service {
             localLayoutParams.height = (Common.Height);
             localLayoutParams.x = 0;
             localLayoutParams.y = ((Common.Area)*-1);
+
+            if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
+                int b = (Color.parseColor(fade));
+                gt = new GradientDrawable();
+                if (Common.GradientType.contains("1")) {
+                    int colors[] = {b, i};
+                    gt.setOrientation(GradientDrawable.Orientation.BOTTOM_TOP);
+                    gt.setColors(colors);
+                }
+                if (Common.GradientType.contains("2")) {
+                    int colors[] = {b, i, b};
+                    gt.setColors(colors);
+
+                }
+                if (Common.GradientType.contains("3")) {
+                    int colors[] = {b, i};
+                    gt.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+                    gt.setColors(colors);
+                }
+                vw.setBackground(gt);
+            } else {
+                vw.setBackgroundColor(i);
+            }
         }
         if (Common.O == 3){
             Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenWidth);
@@ -168,32 +238,31 @@ public class FilterService extends Service {
             localLayoutParams.width = (Common.Height);
             localLayoutParams.x = ((Common.Area)*-1);
             localLayoutParams.y = 0;
+
+            if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
+                int b = (Color.parseColor(fade));
+                gt = new GradientDrawable();
+                if (Common.GradientType.contains("1")) {
+                    int colors[] = {b, i};
+                    gt.setOrientation(GradientDrawable.Orientation.RIGHT_LEFT);
+                    gt.setColors(colors);
+                }
+                if (Common.GradientType.contains("2")) {
+                    int colors[] = {b, i, b};
+                    gt.setColors(colors);
+
+                }
+                if (Common.GradientType.contains("3")) {
+                    int colors[] = {b, i};
+                    gt.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                    gt.setColors(colors);
+                }
+                vw.setBackground(gt);
+            } else {
+                vw.setBackgroundColor(i);
+            }
         }
         localWindowManager.updateViewLayout(vw, localLayoutParams);
-        int i = Common.converToDecimalFromHex(Common.BgColor);
-        String fade = Common.BgColor.replace("#", "#00");
-        if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
-            int b = (Color.parseColor(fade));
-            gt = new GradientDrawable();
-            if (Common.GradientType.contains("1")) {
-                int colors[] = {b, i};
-                gt.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
-                gt.setColors(colors);
-            }
-            if (Common.GradientType.contains("2")) {
-                int colors[] = {b, i, b};
-                gt.setColors(colors);
-
-            }
-            if (Common.GradientType.contains("3")) {
-                int colors[] = {b, i};
-                gt.setOrientation(GradientDrawable.Orientation.BOTTOM_TOP);
-                gt.setColors(colors);
-            }
-            vw.setBackground(gt);
-        } else {
-            vw.setBackgroundColor(i);
-        }
         vw.getBackground().setAlpha(Common.Alpha);
         localSQLiteDatabase.close();
     }
