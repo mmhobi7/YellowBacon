@@ -77,7 +77,7 @@ public class FilterService extends Service {
         vw.getBackground().setDither(true);
         vw.setRotation(0);
         localWindowManager.addView(vw, localLayoutParams);
-        if (!Common.Notif){
+        if (!Common.Notif) {
             startNotification();
         }
     }
@@ -171,7 +171,7 @@ public class FilterService extends Service {
                 vw.setBackgroundColor(i);
             }
         }
-        if (Common.O == 1){
+        if (Common.O == 1) {
             Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenWidth);
             Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenWidth / 2) * -1);
             localLayoutParams.height = (int) screenWidth;
@@ -208,7 +208,7 @@ public class FilterService extends Service {
             localLayoutParams.width = (int) screenWidth;
             localLayoutParams.height = (Common.Height);
             localLayoutParams.x = 0;
-            localLayoutParams.y = ((Common.Area)*-1);
+            localLayoutParams.y = ((Common.Area) * -1);
 
             if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
                 int b = (Color.parseColor(fade));
@@ -233,12 +233,12 @@ public class FilterService extends Service {
                 vw.setBackgroundColor(i);
             }
         }
-        if (Common.O == 3){
+        if (Common.O == 3) {
             Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenWidth);
             Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenWidth / 2) * -1);
             localLayoutParams.height = (int) screenWidth;
             localLayoutParams.width = (Common.Height);
-            localLayoutParams.x = ((Common.Area)*-1);
+            localLayoutParams.x = ((Common.Area) * -1);
             localLayoutParams.y = 0;
 
             if (MainActivity.mThis.toggleButtonOnOff2.isChecked()) {
@@ -273,7 +273,7 @@ public class FilterService extends Service {
         Intent localIntent = new Intent(getApplicationContext(), MainActivity.class);
         localIntent.addFlags(872415232);
         PendingIntent localPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, localIntent, 0);
-        NotificationManager n = ((NotificationManager)getSystemService("notification"));
+        NotificationManager n = ((NotificationManager) getSystemService("notification"));
         Notification localNotification = new Notification(R.drawable.ic_launcher, "Screen Filter", System.currentTimeMillis());
         localNotification.setLatestEventInfo(this, "k", "Screen Filter", localPendingIntent);
         n.notify(1, localNotification);

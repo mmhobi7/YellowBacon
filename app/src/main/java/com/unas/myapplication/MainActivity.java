@@ -12,14 +12,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -33,6 +30,15 @@ public class MainActivity extends Activity
         implements View.OnClickListener {
     public static MainActivity mThis;
     static MyDBHelper mDBHelper;
+    private final BroadcastReceiver myReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equalsIgnoreCase("android.intent.action.CONFIGURATION_CHANGED")) {
+                Common.O = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+                FilterService.mThis.setConfig();
+            }
+        }
+    };
     Button buttonColor1;
     Button buttonColor2;
     Button checkBox;
@@ -77,13 +83,12 @@ public class MainActivity extends Activity
                 //somewhat messy...
                 ((NotificationManager) getSystemService("notification")).cancelAll();
                 this.rService.endNotification();
+                Common.Notif = false;
                 mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
                 this.rService.removeView();
                 stopService(new Intent(this, FilterService.class));
                 toggleButtonOnOff2.setEnabled(true);
-                if (!(myReceiver == null)) {
                 unregisterReceiver(myReceiver);
-        }
                 return;
             case 2131034121:
         }
@@ -151,7 +156,6 @@ public class MainActivity extends Activity
         }
         localSQLiteDatabase.close();
     }
-
 
     @SuppressLint({"NewApi"})
     public void onCreate(Bundle paramBundle) {
@@ -322,17 +326,6 @@ public class MainActivity extends Activity
             Common.boot = false;
         }
     }
-
-    private final BroadcastReceiver myReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(intent.getAction().equalsIgnoreCase("android.intent.action.CONFIGURATION_CHANGED"))
-            {
-                Common.O = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
-                FilterService.mThis.setConfig();
-            }
-        }
-    };
 
     public void onDestroy() {
         super.onDestroy();
