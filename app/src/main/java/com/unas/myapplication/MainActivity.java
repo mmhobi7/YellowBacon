@@ -81,7 +81,7 @@ public class MainActivity extends Activity
                     return;
                 }
                 //somewhat messy...
-                ((NotificationManager) getSystemService("notification")).cancelAll();
+                ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
                 this.rService.endNotification();
                 Common.Notif = false;
                 mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "N");
