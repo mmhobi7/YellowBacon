@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 
 /**
- * Created by aaahh on 8/26/14.
+ * Created by aaahh on 8/26/14. Random stuff
  */
 public class Common {
 
