@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -88,7 +89,9 @@ public class Color extends Activity {
 
         @JavascriptInterface
         public void setColor(String paramAnonymousString) {
+            Log.d("colo(u)r", paramAnonymousString);
             Common.BgColor = "#" + paramAnonymousString.replaceAll("#", "");
+            Log.d("colo(u)r", Common.BgColor);
             Message localMessage = Color.this.setColor.obtainMessage();
             Color.this.setColor.sendMessage(localMessage);
         }
