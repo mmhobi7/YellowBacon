@@ -5,8 +5,10 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -30,6 +32,15 @@ public class FilterService extends Service {
     private final IBinder rBinder = new LocalBinder();
     public WindowManager.LayoutParams localLayoutParams;
     public WindowManager localWindowManager;
+    public final BroadcastReceiver myReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equalsIgnoreCase("android.intent.action.CONFIGURATION_CHANGED")) {
+                Common.O = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+                FilterService.mThis.setConfig();
+            }
+        }
+    };
 
     public void addView() {
         mDBHelper = new MyDBHelper(mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
@@ -80,6 +91,7 @@ public class FilterService extends Service {
         if (!Common.Notif) {
             startNotification();
         }
+        rotationReceiver();
     }
 
     public void endNotification() {
@@ -290,6 +302,16 @@ public class FilterService extends Service {
         startForeground(1, localNotification);
        // localNotification.flags |= Notification.FLAG_FOREGROUND_SERVICE;
        */
+    }
+
+    public void rotationReceiver(){
+        IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
+        if (Common.Receiver){
+            registerReceiver(myReceiver, filter1);
+        }
+        if (!Common.Receiver){
+            unregisterReceiver(myReceiver);
+        }
     }
 
     public class LocalBinder extends Binder {

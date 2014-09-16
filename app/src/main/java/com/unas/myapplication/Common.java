@@ -14,6 +14,7 @@ public class Common {
     public static String GradientType = String.valueOf(1);
     public static String passedonce;
     public static boolean Notif = false;
+    public static boolean Receiver = false;
     public static String toboot = "N";
     public static boolean boot = false;
     public static int O = 0;

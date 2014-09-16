@@ -4,12 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,15 +28,6 @@ public class MainActivity extends Activity
         implements View.OnClickListener {
     public static MainActivity mThis;
     static MyDBHelper mDBHelper;
-    private final BroadcastReceiver myReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equalsIgnoreCase("android.intent.action.CONFIGURATION_CHANGED")) {
-                Common.O = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
-                FilterService.mThis.setConfig();
-            }
-        }
-    };
     Button buttonColor1;
     Button buttonColor2;
     Button checkBox;
@@ -71,16 +60,16 @@ public class MainActivity extends Activity
             case 2131034119:
                 SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
                 if (this.toggleButtonOnOff.isChecked()) {
+                    Common.Receiver = true;
                     this.rService.startNotification();
                     mDBHelper.putKeyData(localSQLiteDatabase, "FilterYN", "Y");
                     startService(new Intent(this, FilterService.class));
                     this.rService.addView();
                     toggleButtonOnOff2.setEnabled(false);
-                    IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
-                    registerReceiver(myReceiver, filter1);
                     return;
                 }
                 //somewhat messy...
+                Common.Receiver = false;
                 ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
                 this.rService.endNotification();
                 Common.Notif = false;
@@ -88,7 +77,6 @@ public class MainActivity extends Activity
                 this.rService.removeView();
                 stopService(new Intent(this, FilterService.class));
                 toggleButtonOnOff2.setEnabled(true);
-                unregisterReceiver(myReceiver);
                 return;
             case 2131034121:
         }
@@ -204,8 +192,7 @@ public class MainActivity extends Activity
         if (Common.FilterYN.equals("Y")) {
             this.toggleButtonOnOff.setChecked(true);
             this.toggleButtonOnOff2.setEnabled(false);
-            IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
-            registerReceiver(myReceiver, filter1);
+            Common.Receiver = true;
         }
         if (Common.GradientYN.equals("Y")) {
             this.toggleButtonOnOff2.setChecked(true);
@@ -329,7 +316,7 @@ public class MainActivity extends Activity
 
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(myReceiver);
+        Common.Receiver = false;
         unbindService(rConnection);
     }
 
