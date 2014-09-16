@@ -29,9 +29,6 @@ public class FilterService extends Service {
     public static View vw;
     public static GradientDrawable gt;
     static MyDBHelper mDBHelper;
-    private final IBinder rBinder = new LocalBinder();
-    public WindowManager.LayoutParams localLayoutParams;
-    public WindowManager localWindowManager;
     public final BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -41,6 +38,9 @@ public class FilterService extends Service {
             }
         }
     };
+    private final IBinder rBinder = new LocalBinder();
+    public WindowManager.LayoutParams localLayoutParams;
+    public WindowManager localWindowManager;
 
     public void addView() {
         mDBHelper = new MyDBHelper(mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
@@ -304,12 +304,12 @@ public class FilterService extends Service {
        */
     }
 
-    public void rotationReceiver(){
+    public void rotationReceiver() {
         IntentFilter filter1 = new IntentFilter("android.intent.action.CONFIGURATION_CHANGED");
-        if (Common.Receiver){
+        if (Common.Receiver) {
             registerReceiver(myReceiver, filter1);
         }
-        if (!Common.Receiver){
+        if (!Common.Receiver) {
             unregisterReceiver(myReceiver);
         }
     }
