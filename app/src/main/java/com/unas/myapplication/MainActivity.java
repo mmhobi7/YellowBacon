@@ -27,12 +27,11 @@ import android.widget.ToggleButton;
 public class MainActivity extends Activity
         implements View.OnClickListener {
     public static MainActivity mThis;
-    static MyDBHelper mDBHelper;
+    private static MyDBHelper mDBHelper;
     Button buttonColor1;
-    Button buttonColor2;
-    Button checkBox;
+    private Button checkBox;
     FilterService rService;
-    private ServiceConnection rConnection = new ServiceConnection() {
+    private final ServiceConnection rConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName paramAnonymousComponentName, IBinder paramAnonymousIBinder) {
             FilterService.LocalBinder localLocalBinder = (FilterService.LocalBinder) paramAnonymousIBinder;
             MainActivity.this.rService = localLocalBinder.getService();
@@ -45,11 +44,8 @@ public class MainActivity extends Activity
         public void onServiceDisconnected(ComponentName paramAnonymousComponentName) {
         }
     };
-    SeekBar seekBar1;
-    TextView textViewPer;
-    ToggleButton toggleButtonOnOff;
-    SeekBar seekBar2;
-    SeekBar seekBar3;
+    private TextView textViewPer;
+    private ToggleButton toggleButtonOnOff;
     ToggleButton toggleButtonOnOff2;
 
     public void onClick(View paramView) {
@@ -83,7 +79,7 @@ public class MainActivity extends Activity
         startActivity(new Intent(mThis, Color.class));
     }
 
-    public void gradientmenu(View v1) {
+    public void gradientmenu(View view) {
         Log.d("e", Common.GradientType);
         if (toggleButtonOnOff2.isChecked()) {
             SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
@@ -129,7 +125,7 @@ public class MainActivity extends Activity
         }
     }
 
-    public void boot(View v2) {
+    public void boot() {
         if (checkBox.isActivated()) {
             Common.toboot = "Y";
         } else {
@@ -161,8 +157,8 @@ public class MainActivity extends Activity
         this.toggleButtonOnOff2 = ((ToggleButton) findViewById(R.id.toggleButtonOnOff2));
         this.buttonColor1 = ((Button) findViewById(2131034120));
         this.buttonColor1.setOnClickListener(this);
-        this.buttonColor2 = ((Button) findViewById(2131034121));
-        this.buttonColor2.setOnClickListener(this);
+        Button buttonColor2 = ((Button) findViewById(2131034121));
+        buttonColor2.setOnClickListener(this);
         this.checkBox = ((CheckBox) findViewById(R.id.checkBox));
         mDBHelper = new MyDBHelper(this, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
         SQLiteDatabase localSQLiteDatabase = mDBHelper.getWritableDatabase();
@@ -201,20 +197,20 @@ public class MainActivity extends Activity
         }
         int j = Common.converToDecimalFromHex(Common.BgColor);
         this.buttonColor1.setBackgroundColor(j);
-        this.seekBar1 = ((SeekBar) findViewById(2131034123));
-        this.seekBar1.setMax(100);
+        SeekBar seekBar1 = ((SeekBar) findViewById(2131034123));
+        seekBar1.setMax(100);
         Log.d("q", String.valueOf(Common.passedonce));
         if (Common.passedonce == null) {
             Common.passedonce = "N";
         }
         if (Common.passedonce.equals("Y")) {
-            this.seekBar1.setProgress(a);
+            seekBar1.setProgress(a);
         } else {
-            this.seekBar1.setProgress(50);
+            seekBar1.setProgress(50);
             MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "passedonce", ("Y"));
         }
         localSQLiteDatabase.close();
-        this.seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 MainActivity.this.textViewPer.setText(paramAnonymousInt + "%");
                 Common.Alpha = 200 - paramAnonymousInt * 2;
@@ -238,17 +234,17 @@ public class MainActivity extends Activity
             }
         });
 
-        this.seekBar2 = ((SeekBar) findViewById(R.id.seekBar2));
-        this.seekBar2.setMax(100);
+        SeekBar seekBar2 = ((SeekBar) findViewById(R.id.seekBar2));
+        seekBar2.setMax(100);
         Log.d("r", String.valueOf(Common.passedonce));
         if (Common.passedonce.equals("Y")) {
-            this.seekBar2.setProgress(b);
+            seekBar2.setProgress(b);
         } else {
-            this.seekBar2.setProgress(50);
+            seekBar2.setProgress(50);
             localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
             MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "passedonce", ("Y"));
         }
-        this.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
@@ -275,16 +271,16 @@ public class MainActivity extends Activity
             }
         });
 
-        this.seekBar3 = ((SeekBar) findViewById(R.id.seekBar3));
-        this.seekBar3.setMax(100);
+        SeekBar seekBar3 = ((SeekBar) findViewById(R.id.seekBar3));
+        seekBar3.setMax(100);
         if (Common.passedonce.equals("Y")) {
-            this.seekBar3.setProgress(c);
+            seekBar3.setProgress(c);
         } else {
-            this.seekBar3.setProgress(50);
+            seekBar3.setProgress(50);
             localSQLiteDatabase = MainActivity.mDBHelper.getWritableDatabase();
             MainActivity.mDBHelper.putKeyData(localSQLiteDatabase, "passedonce", ("Y"));
         }
-        this.seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar paramAnonymousSeekBar, int paramAnonymousInt, boolean paramAnonymousBoolean) {
                 DisplayMetrics displaymetrics = new DisplayMetrics();
                 ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displaymetrics);
@@ -331,9 +327,5 @@ public class MainActivity extends Activity
     protected void onStart() {
         super.onStart();
         bindService(new Intent(this, FilterService.class), this.rConnection, 1);
-    }
-
-    public void onWindowFocusChanged(boolean paramBoolean) {
-        super.onWindowFocusChanged(paramBoolean);
     }
 }

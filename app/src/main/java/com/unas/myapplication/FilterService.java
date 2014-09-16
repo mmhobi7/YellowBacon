@@ -283,10 +283,10 @@ public class FilterService extends Service {
 
     public void startNotification() {
         Intent localIntent = new Intent(getApplicationContext(), MainActivity.class);
-        localIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent localPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, localIntent, 0);
         NotificationManager n = ((NotificationManager) getSystemService(NOTIFICATION_SERVICE));
-        Notification localNotification  = new Notification.Builder(this)
+        Notification localNotification = new Notification.Builder(this)
                 .setContentTitle("Filter Screen")
                 .setContentText("Activated")
                 .setSmallIcon(android.R.drawable.ic_input_get)
