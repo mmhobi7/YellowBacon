@@ -2,6 +2,7 @@ package com.unas.myapplication;
 
 import android.database.Cursor;
 import android.graphics.Color;
+import android.util.Log;
 
 /**
  * Created by aaahh on 8/26/14. Random stuff
@@ -45,10 +46,14 @@ public class Common {
     }
 
     public static int cH(String s) {
+        Log.d("7", s);
         return Integer.parseInt(s, 16);
     }
 
     public static int converToDecimalFromHex(String s) {
+        Log.d("aaa", String.valueOf(s.substring(1, 3)));
+        Log.d("2", String.valueOf(s.substring(3, 5)));
+        Log.d("3", String.valueOf(s.substring(5, 7)));
         return Color.rgb(cH(s.substring(1, 3)), cH(s.substring(3, 5)), cH(s.substring(5, 7)));
     }
 
