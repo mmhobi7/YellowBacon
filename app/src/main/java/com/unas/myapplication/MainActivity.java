@@ -174,7 +174,7 @@ public class MainActivity extends Activity
         } else {
             checkBox.setActivated(false);
         }
-        this.textViewPer.setText(a + "%");
+//        this.textViewPer.setText(a + "%");
         Common.Alpha = 200 - a * 2;
         this.checkBox.setActivated(true);
         int b = Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"));
@@ -303,7 +303,7 @@ public class MainActivity extends Activity
                 MainActivity.this.rService.setArea(Common.Area);
             }
         });
-        MainActivity.this.textViewPer.setText(seekBar1.getProgress() + "%");
+//        MainActivity.this.textViewPer.setText(seekBar1.getProgress() + "%");
         if (Common.boot) {
             toggleButtonOnOff.setChecked(true);
             Common.boot = false;

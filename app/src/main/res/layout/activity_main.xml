@@ -34,7 +34,8 @@
                 android:layout_height="fill_parent"
                 android:text="@string/s1" />
 
-            <ToggleButton android:id="@+id/toggleButtonOnOff"
+            <ToggleButton
+                android:id="@+id/toggleButtonOnOff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ToggleButton"

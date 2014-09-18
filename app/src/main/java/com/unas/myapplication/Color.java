@@ -5,36 +5,32 @@ package com.unas.myapplication;
  */
 
 import android.app.Activity;
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
+
+import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.SaturationBar;
+import com.larswerkman.holocolorpicker.ValueBar;
 
 public class Color extends Activity {
     public static Color mThis;
-    public static WebView webView;
     static MyDBHelper mDBHelper;
     final Handler setColor = new Handler() {
         public void handleMessage(Message paramAnonymousMessage) {
             Color.mDBHelper = new MyDBHelper(Color.mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
             SQLiteDatabase localSQLiteDatabase = Color.mDBHelper.getWritableDatabase();
-            Common.FilterYN = Color.mDBHelper.getKeyData(localSQLiteDatabase, "FilterYN");
-            int i = Common.converToDecimalFromHex(Common.BgColor);
+           Common.FilterYN = Color.mDBHelper.getKeyData(localSQLiteDatabase, "FilterYN");
+           int i = Common.converToDecimalFromHex(Common.BgColor);
             Color.mDBHelper.putKeyData(localSQLiteDatabase, "BgColor", Common.BgColor);
-            localSQLiteDatabase.close();
+         localSQLiteDatabase.close();
             MainActivity.mThis.buttonColor1.setBackgroundColor(i);
-            if (Common.FilterYN.equals("Y"))
-                MainActivity.mThis.rService.setConfig();
-            Color.this.finish();
-        }
+           if (Common.FilterYN.equals("Y"))
+             MainActivity.mThis.rService.setConfig();
+           Color.this.finish();
+       }
     };
     final Handler setCancel = new Handler() {
         public void handleMessage(Message paramAnonymousMessage) {
@@ -42,16 +38,43 @@ public class Color extends Activity {
         }
     };
 
-    public static void goUrl() {
-        webView.loadUrl("file:///android_asset/a.html");
-    }
+   // public static void goUrl() {
+        //webView.loadUrl("file:///android_asset/a.html");
+  //  }
 
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         requestWindowFeature(1);
-        setContentView(R.layout.color);
-        mThis = this;
-        webView = (WebView) findViewById(R.id.webView1);
+        setContentView(R.layout.colors);
+        final ColorPicker picker = (ColorPicker) findViewById(R.id.picker);
+        SaturationBar saturationBar = (SaturationBar) findViewById(R.id.saturationbar);
+        ValueBar valueBar = (ValueBar) findViewById(R.id.valuebar);
+
+        picker.addSaturationBar(saturationBar);
+        picker.addValueBar(valueBar);
+
+        Log.d("colo(u)r", String.valueOf(picker.getColor()));
+
+        picker.setOldCenterColor(picker.getColor());
+        picker.setOnColorChangedListener(new ColorPicker.OnColorChangedListener() {
+            @Override
+            public void onColorChanged(int color) {
+                Log.d("colo(u)r", String.valueOf(picker.getColor()));
+            }
+        });
+        picker.setShowOldCenterColor(true);
+        saturationBar.setOnSaturationChangedListener(new SaturationBar.OnSaturationChangedListener() {
+            @Override
+            public void onSaturationChanged(int saturation) {
+            }
+        });
+        valueBar.setOnValueChangedListener(new ValueBar.OnValueChangedListener() {
+            @Override
+            public void onValueChanged(int value) {
+            }
+        });
+    }
+        /*webView = (WebView) findViewById(R.id.webView1);
         webView.setWebViewClient(new HelloWebViewClient());
         WebChromeClient localWebChromeClient = new WebChromeClient();
         webView.setWebChromeClient(localWebChromeClient);
@@ -66,7 +89,8 @@ public class Color extends Activity {
         webView.setBackgroundColor(0);
         webView.addJavascriptInterface(new JavaScriptInterface(mThis), "android");
         goUrl();
-        getWindow().setFlags(4, 4);
+
+        //getWindow().setFlags(4, 4);
     }
 
     public void onDestroy() {
@@ -97,7 +121,7 @@ public class Color extends Activity {
             Color.this.setColor.sendMessage(localMessage);
         }
     }
-
+/*
     class HelloWebViewClient extends WebViewClient {
 
         public void onPageFinished(WebView paramWebView, String paramString) {
@@ -111,8 +135,9 @@ public class Color extends Activity {
         }
 
         public boolean shouldOverrideUrlLoading(WebView paramWebView, String paramString) {
-            paramWebView.loadUrl(paramString);
+            //paramWebView.loadUrl(paramString);
             return true;
         }
     }
+    */
 }
