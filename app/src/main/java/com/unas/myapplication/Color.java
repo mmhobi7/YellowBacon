@@ -107,10 +107,9 @@ public class Color extends Activity {
 
         //Both of these are used...
         @JavascriptInterface
-        public void setCancel(String paramAnonymousString) {
-            //Message localMessage = Color.this.setCancel.obtainMessage();
-            //Color.this.setCancel.sendMessage(localMessage);
-            Log.d("0", paramAnonymousString);
+        public void setCancel() {
+            Message localMessage = Color.this.setCancel.obtainMessage();
+            Color.this.setCancel.sendMessage(localMessage);
         }
 
         @JavascriptInterface
@@ -127,7 +126,7 @@ public class Color extends Activity {
 
         public void onPageFinished(WebView paramWebView, String paramString) {
             super.onPageFinished(paramWebView, paramString);
-            //Color.webView.loadUrl("javascript:document.write(\"" + ColorH.getH() + "\")");
+            Color.webView.loadUrl("javascript:document.write(\"" + ColorH.getH() + "\")");
         }
 
         public void onReceivedError(WebView paramWebView, int paramInt, String paramString1, String paramString2) {
