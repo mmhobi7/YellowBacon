@@ -73,7 +73,8 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="50.0dip">
+            android:layout_height="50.0dip"
+            android:id="@+id/">
 
             <View
                 android:layout_width="20.0dip"
@@ -94,11 +95,10 @@
                 android:layout_height="wrap_content" />
 
             <Button
-                android:id="@id/buttonColor1"
+                android:id="@+id/buttonColor1"
                 android:background="#ff000000"
                 android:layout_width="50.0dip"
-                android:layout_height="fill_parent"
-                android:text="" />
+                android:layout_height="fill_parent" />
 
             <View
                 android:layout_width="10.0dip"
@@ -132,7 +132,7 @@
                 android:textAppearance="?android:textAppearanceMedium"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
-                android:id="@id/textView2"
+                android:id="@+id/textView2"
                 android:padding="3.0dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

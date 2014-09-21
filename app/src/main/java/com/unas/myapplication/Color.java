@@ -18,7 +18,8 @@ import com.larswerkman.holocolorpicker.ValueBar;
 public class Color extends Activity {
     public static Color mThis;
     static MyDBHelper mDBHelper;
-    final Handler setColor = new Handler() {
+    final Handler
+            setColor = new Handler() {
         public void handleMessage(Message paramAnonymousMessage) {
             Color.mDBHelper = new MyDBHelper(Color.mThis, MyDBHelper.dbNm, null, MyDBHelper.dbVer);
             SQLiteDatabase localSQLiteDatabase = Color.mDBHelper.getWritableDatabase();

@@ -29,6 +29,7 @@ public class MainActivity extends Activity
     public static MainActivity mThis;
     private static MyDBHelper mDBHelper;
     Button buttonColor1;
+    private Button checkBox;
     FilterService rService;
     private final ServiceConnection rConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName paramAnonymousComponentName, IBinder paramAnonymousIBinder) {
@@ -43,10 +44,9 @@ public class MainActivity extends Activity
         public void onServiceDisconnected(ComponentName paramAnonymousComponentName) {
         }
     };
-    ToggleButton toggleButtonOnOff2;
-    private Button checkBox;
     private TextView textViewPer;
     private ToggleButton toggleButtonOnOff;
+    ToggleButton toggleButtonOnOff2;
 
     public void onClick(View paramView) {
         switch (paramView.getId()) {

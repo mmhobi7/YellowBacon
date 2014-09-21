@@ -171,6 +171,7 @@ public class FilterService extends Service {
                 if (Common.GradientType.contains("2")) {
                     int colors[] = {b, i, b};
                     gt.setColors(colors);
+
                 }
                 if (Common.GradientType.contains("3")) {
                     int colors[] = {b, i};
@@ -183,10 +184,10 @@ public class FilterService extends Service {
             }
         }
         if (Common.O == 1) {
-            Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
-            Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenHeight / 2) * -1);
-            localLayoutParams.height = (Common.Height);
-            localLayoutParams.width = (int) screenWidth;
+            Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenWidth);
+            Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenWidth / 2) * -1);
+            localLayoutParams.height = (int) screenWidth;
+            localLayoutParams.width = (Common.Height);
             localLayoutParams.x = (Common.Area);
             localLayoutParams.y = 0;
 
@@ -201,7 +202,7 @@ public class FilterService extends Service {
                 if (Common.GradientType.contains("2")) {
                     int colors[] = {b, i, b};
                     gt.setColors(colors);
-                    gt.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+
                 }
                 if (Common.GradientType.contains("3")) {
                     int colors[] = {b, i};
@@ -215,9 +216,9 @@ public class FilterService extends Service {
         }
         if (Common.O == 2) {
             Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
-            Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50f) * 2f) / 100f)) * (screenHeight / 2f) * -1f);
-            localLayoutParams.height = (Common.Height);
+            Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenHeight / 2) * -1);
             localLayoutParams.width = (int) screenWidth;
+            localLayoutParams.height = (Common.Height);
             localLayoutParams.x = 0;
             localLayoutParams.y = ((Common.Area) * -1);
 
@@ -232,6 +233,7 @@ public class FilterService extends Service {
                 if (Common.GradientType.contains("2")) {
                     int colors[] = {b, i, b};
                     gt.setColors(colors);
+
                 }
                 if (Common.GradientType.contains("3")) {
                     int colors[] = {b, i};
@@ -244,10 +246,10 @@ public class FilterService extends Service {
             }
         }
         if (Common.O == 3) {
-            Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenHeight);
+            Common.Height = (int) (((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Height"))) / 100f) * screenWidth);
             Common.Area = (int) ((((((Integer.parseInt(mDBHelper.getKeyData(localSQLiteDatabase, "Area"))) - 50) * 2) / 100f)) * (screenWidth / 2) * -1);
-            localLayoutParams.height = (Common.Height);
-            localLayoutParams.width = (int) screenWidth;
+            localLayoutParams.height = (int) screenWidth;
+            localLayoutParams.width = (Common.Height);
             localLayoutParams.x = ((Common.Area) * -1);
             localLayoutParams.y = 0;
 
@@ -262,7 +264,7 @@ public class FilterService extends Service {
                 if (Common.GradientType.contains("2")) {
                     int colors[] = {b, i, b};
                     gt.setColors(colors);
-                    gt.setOrientation(GradientDrawable.Orientation.RIGHT_LEFT);
+
                 }
                 if (Common.GradientType.contains("3")) {
                     int colors[] = {b, i};
